@@ -34,7 +34,7 @@ HTTP Method: GET
 Request:
 
 Headers: apiKey: YOUR_API_KEY
-URL: http://localhost:3000/main/place?api_key=YOUR_API_KEY
+URL: http://localhost:3000/main/place?api_key=YOUR_API_KEY&use_header=false
 
 GET /main/place/:Name
 
@@ -48,7 +48,7 @@ Request:
 
 Headers: apiKey: YOUR_API_KEY
 
-URL: http://localhost:3000/main/place/Name?api_key=YOUR_API_KEY
+URL: http://localhost:3000/main/place/Name?api_key=YOUR_API_KEY&use_header=false
 
      Error Handling
 GET /main/place:
@@ -63,7 +63,8 @@ Possible Errors: "Not found" error (404) for non-existent Counties or Unitary Au
 Accessing Endpoints
 
 Include the API key as a query parameter in your URL or use the apiKey in the headers.
-Example URL: http://localhost:3000/main/place?api_key=YOUR_API_KEY
+Example URL: http://localhost:3000/main/place?api_key=YOUR_API_KEY&use_header=false
+
 Response Format
 
 All responses are in JSON format.
