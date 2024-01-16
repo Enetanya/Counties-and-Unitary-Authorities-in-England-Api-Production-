@@ -1,0 +1,30 @@
+doctype html
+html(lang="en")
+head 
+  title Change Login Details 
+body
+  h3 Please enter your new login details. 
+  form(action="/forgot/update-login-details", method="POST") 
+    input(name="email", type="email", required, placeholder="Enter same email adress") 
+    input(name="newId", type="text", required, placeholder="New User ID") 
+    input(name="newPassword", type="password", required, placeholder="New Password") 
+    button(type="submit") Submit 
+    br 
+    br
+    a(href='/auth/signup') Return to Signup Page
+    br
+    br 
+    br 
+    p 1. Email: Use the registered email for the system. 
+    p 2. ID Rule: Create an ID at least 8 characters long, using only letters, uppercase/lowercase. 
+    p 3. Password Rule: Generate a password at least 8 characters long, including one uppercase letter, one lowercase letter, one number, and one special character.
+    br
+    br
+
+    if (success)
+      h3 New Login Response:
+      p.success= success
+      a(href='/auth/login') Login
+    if (error)
+      h3 New Login Response:
+      p.error= error

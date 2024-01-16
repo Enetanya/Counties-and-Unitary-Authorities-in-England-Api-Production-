@@ -1,0 +1,252 @@
+doctype html
+html(lang="en")
+  head
+    title Counties & Unitary Authorities API Documentation
+  body
+    // Introduction Section
+    h1 Counties & Unitary Authorities in England API Documentation
+    h2 Introduction
+    h3 Objective 
+    p To produce a concise and comprehensive view of detailed information for 48 Counties and 30 Unitary Authorities in England.
+      
+    h3 Data Structure 
+    p Utilized a structured dataset encompassing essential details for each administrative region, including names, districts, hospitals, universities, notable sites, closest airports, and main train stations.
+    
+    h3 Coverage 
+    p Encompassed comprehensive information crucial for analysis and reference purposes, ensuring easy access and retrieval of vital details for administrative regions.
+    
+    h3 Technologies 
+    ul 
+      li Database:  MongoDB for efficient data storage and management.
+      
+      li Backend Framework:  Employed Node.js and Express.js to create a robust API, facilitating seamless data handling and retrieval.
+    
+    // Authentication Section
+    h2 Authentication
+    p Do keep your login details as you will need them for subsequent visits to access this documentation page.
+    
+    h3 Forgot Login Details
+    p Users can reset their login details by accessing the "Forgot Password" link available on both the signup and login pages, after which a reset link is sent to the registered email address to  facilitate the change of login details.
+    
+    h3 Accessing Endpoint
+    p You need an API key which you will include in the URL when accessing the endpoints. 
+    //Generate API key Form
+    form(action="/main/generateApiKey", method="POST") 
+      button(type="submit") Generate an API key 
+    br
+    // Render the generated API key if it exists
+    if (success)
+      strong API Key: #{apiKey}
+      p.success= success 
+    if (error)
+      p.error= error
+    // Instructions for including API key
+    br
+    
+    strong You have two options on how to include API key in your requests:
+    ul
+      li Include the API key as a query parameter in your URL: https://example.com/place?apiKey=YOUR_API_KEY&use_header=false
+      li Use the `Authorization` header in your request with the API key: `Authorization: YOUR_API_KEY`"
+
+    // Endpoints Section
+    h3 Endpoints
+
+    // GET /place Endpoint
+    h4 GET /place
+    p Description: Retrieves information about all Counties and Unitary Authorities.
+    strong Request:
+    ul
+      li HTTP Method: GET
+      li Endpoint: /main/place
+      li Headers: None
+      li Query Parameters: 
+      ul 
+        li apiKey: YOUR_API_KEY
+        li use_header: false
+      li URL: http://localhost:3000/main/place?api_key=YOUR_API_KEY&use_header=false
+    strong Response Format:
+    ul
+      li  JSON 
+      
+      p JSON Example
+    pre.
+      | [
+      |   {
+      |     "Name": "County A",
+      |     "Districts": ["District X", "District Y"],
+      |     "Hospitals": ["Hospital A", "Hospital B"],
+      |     "Universities": ["University X", "University Y"],
+      |     "NotableSites": ["Site 1", "Site 2"],
+      |     "ClosestAirports": ["Airport X", "Airport Y"],
+      |     "MainTrainStations": ["Station 1", "Station 2"]
+      |   },
+      |   {
+      |     "Name": "County B",
+      |     "Districts": ["District P", "District Q"],
+      |     "Hospitals": ["Hospital C", "Hospital D"],
+      |     "Universities": ["University P", "University Q"],
+      |     "NotableSites": ["Site X", "Site Y"],
+      |     "ClosestAirports": ["Airport P", "Airport Q"],
+      |     "MainTrainStations": ["Station X", "Station Y"]
+      |   }
+      | ]
+
+    // GET /place/{Name} Endpoint
+    h4 GET /place/:Name
+    p Description: Retrieves information about a specific County or Unitary Authority by 'Name'.
+    strong Request:
+    ul
+      li  HTTP Method: GET
+      li  Endpoint: /place/:Name
+      li  Headers: None
+      li  Query Parameters:
+      ul 
+        li apiKey: YOUR_API_KEY
+        li use_header: false
+        li Name: Replace with County or Unitary Authority. Adjust the URL based on if the 'Name' has a single word(No space) or multiple words(With space).
+      li URL: 
+          ul 
+            li No space:  http://localhost:3000/main/place/Name?api_key=YOUR_API_KEY&use_header=false
+            li With space: http://localhost:3000/main/place/A%20B%20C?api_key=YOUR_API_KEY&use_header=false   ; Replace spaces in URL parameters with '%20' or use '+' in query parameters. Assuming Name =  'A B C'.
+    strong Response Format:
+    ul
+      li  JSON 
+      
+       p JSON Example
+    pre.
+      | {
+      |   "Name": "County A",
+      |   "Districts": ["District X", "District Y"],
+      |   "Hospitals": ["Hospital A", "Hospital B"],
+      |   "Universities": ["University X", "University Y"],
+      |   "NotableSites": ["Site 1", "Site 2"],
+      |   "ClosestAirports": ["Airport X", "Airport Y"],
+      |   "MainTrainStations": ["Station 1", "Station 2"]
+      | }
+
+    // Error Handling Section
+    h2 Error Handling
+
+    // GET /place Error Handling
+    h3 GET /place
+    p Possible Errors:
+    ul
+      li If there's an issue fetching county data from the database, it might result in a server error (500).
+    p Handling:
+    ul   
+      li The code catches errors and sends an error response with a status code and an error message.
+
+    // GET /place/{name} Error Handling
+    h3 GET /place/:name
+    p Possible Errors:
+    ul
+      li If the specified County or Unitary Authority does not exist, it returns a "not found" error (404).
+      li Server errors (500) might occur due to database issues or other unexpected errors.
+    p Handling:
+    ul  
+      li It checks for existence and sends a "not found" response if the County isn't available.
+      li Catches other errors and sends appropriate error messages with status codes.
+
+    // Logout Section
+    h2 Logout
+    p Once your tasks are completed, it's recommended to log out for security purposes. Use the appropriate logout functionality application below to terminate the sessions.
+    a(href='/auth/signup') Logout
+
+    // Conclusion Section
+    h2 Conclusion 
+    p The project aimed to provide a detailed overview of Counties and Unitary Authorities in England, ensuring organized and accessible information for analysis and utilization purposes.
+
+    // List of Counties and Unitary Authorities Covered
+    h2 Appendix 
+    p Below is a list of the covered Counties & Unitary Authorities in England.
+    h3 Ceremonial Counties:
+    ol
+      li Bedfordshire
+      li Berkshire
+      li Bristol
+      li Buckinghamshire
+      li Cambridgeshire
+      li Cheshire
+      li City of London
+      li Cornwall
+      li County Durham
+      li Cumbria
+      li Derbyshire
+      li Devon
+      li Dorset
+      li East Riding of Yorkshire
+      li East Sussex
+      li Essex
+      li Gloucestershire
+      li Greater London
+      li Greater Manchester
+      li Hampshire
+      li Herefordshire
+      li Hertfordshire
+      li Isle of Wight
+      li Kent
+      li Lancashire
+      li Leicestershire
+      li Lincolnshire
+      li Merseyside
+      li Norfolk
+      li Northamptonshire
+      li Northumberland
+      li North Yorkshire
+      li Nottinghamshire
+      li Oxfordshire
+      li Rutland
+      li Shropshire
+      li Somerset
+      li South Yorkshire
+      li Staffordshire
+      li Suffolk
+      li Surrey
+      li Tyne and Wear
+      li Warwickshire
+      li West Midlands
+      li West Sussex
+      li West Yorkshire
+      li Wiltshire
+      li Worcestershire
+
+    h3 Unitary Authorities:
+    ol
+      li Bedford Borough
+      li Blackburn with Darwen
+      li Bracknell Forest
+      li Central Bedfordshire
+      li Cheshire East
+      li Cheshire West and Chester
+      li Darlington
+      li Halton
+      li Hartlepool
+      li Isle of Wight
+      li Milton Keynes
+      li North East Lincolnshire
+      li North Lincolnshire
+      li Peterborough
+      li Plymouth
+      li Portsmouth
+      li Reading
+      li Redcar and Cleveland
+      li Rutland
+      li Slough
+      li Southampton
+      li Southend-on-Sea
+      li Stockton-on-Tees
+      li Stoke-on-Trent
+      li Swindon
+      li Telford and Wrekin
+      li Thurrock
+      li Warrington
+      li West Berkshire
+      li Windsor and Maidenhead
+      li Wokingham
+
+       // End of the document
+
+    h2 Strictly Restricted 
+    h3 Note: 
+    p You are required to complete a Two-Password Verification process to make changes to the API using the admin link below. 
+    a(href='/main/changes') ADMIN ACCESS

@@ -1,0 +1,23 @@
+doctype html
+html(lang="en")
+head
+  title   Login 
+body
+  h3 Please enter your login details. 
+  form(action="/auth/login", method="POST")  
+    input(name="id", type="text", required, placeholder="New User ID") 
+    input(name="password", type="password", required, placeholder="Enter Password") 
+    button(type="submit") Submit
+    br
+    br
+    a(href='/forgot/forgot-password') Forgot Password?
+    br
+    br
+    a(href='/auth/signup') Return to Signup Page
+    br 
+    br 
+    br 
+    p 1. Email: Use the registered email address  for the system. 
+    p 2. ID Rule: ID must be at least 8 characters long, using only letters, uppercase/lowercase. 
+    p 3. Password Rule: Password must be at least 8 characters long, including one uppercase letter, one lowercase letter, one number, and one special character.
+    
