@@ -35,6 +35,7 @@ Request:
 
 Headers: apiKey: YOUR_API_KEY
 URL: http://localhost:3000/main/place?api_key=YOUR_API_KEY
+
 GET /main/place/:Name
 
 Description: Retrieves information about a specific County or Unitary Authority by 'Name'.
