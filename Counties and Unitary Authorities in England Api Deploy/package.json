@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npm run build"
   },
   "keywords": [
     "API",
@@ -27,9 +28,6 @@
     "multer": "^1.4.5-lts.1",
     "pug": "^3.0.2",
     "serverless-http": "^3.2.0"
-  },
- "scripts": {
-   "build": "npm run build"
   },
   "devDependencies": {
     "npx": "^10.2.2"
