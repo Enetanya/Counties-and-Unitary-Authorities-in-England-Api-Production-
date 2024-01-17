@@ -16,6 +16,6 @@ db.on('error', (err) => {
   console.error(`MongoDB connection error: ${err}`);
 });
 
-module.exports = {mongoose, db}; // Exporting Mongoose itself
+module.exports = mongoose; // Exporting Mongoose itself
 
 
