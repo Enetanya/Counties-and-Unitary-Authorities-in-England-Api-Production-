@@ -8,7 +8,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "echo Placeholder build script"
   },
-  "keywords": ["API", "1"],
+  "keywords": [
+    "API",
+    "1"
+  ],
   "author": "Okechukwu Enetanya",
   "license": "ISC",
   "dependencies": {
@@ -23,6 +26,7 @@
     "mongoose": "^8.0.3",
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.9.8",
     "pug": "^3.0.2",
     "serverless-http": "^3.2.0"
   },
