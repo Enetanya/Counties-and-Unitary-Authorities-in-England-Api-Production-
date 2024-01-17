@@ -1,16 +1,16 @@
 [build]  
-command = "npm install && npm run build"  
-functions = "netlify-functions"   
+  command = "npm install && npm run build"  
+  functions = "netlify-functions"   
 
-publish = "Counties and Unitary Authorities in England Api Deploy/views"      
+  publish = "Counties and Unitary Authorities in England Api Deploy/views"      
 
-runtime = "nodejs20.x"  
+  runtime = "nodejs20.x"  
 
 [functions]  
-node_bundler = "esbuild"
+  node_bundler = "esbuild"
 
 [[redirects]]  
-force = true  
-from = "/api/*"  
-status = 200  
-to = "/.netlify/functions/api/:splat"
+  force = true  
+  from = "/api/*"  
+  status = 200  
+  to = "/.netlify/functions/api/:splat"
