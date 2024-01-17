@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 const router = express.Router();
 const jwt = require('jsonwebtoken'); // JWT library
-const User = require('./model');
+const User = require('./model.js');
 
 
 // Secret key for JWT
