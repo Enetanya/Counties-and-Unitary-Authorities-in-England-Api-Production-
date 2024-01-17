@@ -2,7 +2,7 @@
 [build]
   command = "npm install && npm run build"
   functions = "netlify-functions"
-  publish = "Counties and Unitary Authorities in England Deploy/views"
+  publish = "Counties and Unitary Authorities in England Api Deploy/views"
   runtime = "nodejs20.x"
 
 [functions]
