@@ -1,4 +1,5 @@
-[build]  command = "npm install && npm run build"  
+[build]  
+  command = "npm install && npm run build"  
   functions = "netlify-functions"  
   publish = "Counties and Unitary Authorities in England Deploy/views"  
   runtime = "nodejs20.x"
