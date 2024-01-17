@@ -2,7 +2,7 @@
 command = "echo Building Functions"  
 functions = "netlify-functions"   
 
-publish = "Counties and Unitary Authorities in England Deploy/views"    
+publish = "Counties and Unitary Authorities in England Api Deploy/views"    
 
 package = "."   
 
