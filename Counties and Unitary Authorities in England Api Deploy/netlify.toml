@@ -4,7 +4,6 @@
   publish = "Counties and Unitary Authorities in England Deploy/views"  
   runtime = "nodejs20.x"
 
-
 [functions]  
   node_bundler = "esbuild"
 
