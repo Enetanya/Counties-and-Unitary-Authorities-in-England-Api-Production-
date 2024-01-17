@@ -6,12 +6,9 @@
   "scripts": {
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npm run build"
+    "build": "echo Placeholder build script"
   },
-  "keywords": [
-    "API",
-    "1"
-  ],
+  "keywords": ["API", "1"],
   "author": "Okechukwu Enetanya",
   "license": "ISC",
   "dependencies": {
