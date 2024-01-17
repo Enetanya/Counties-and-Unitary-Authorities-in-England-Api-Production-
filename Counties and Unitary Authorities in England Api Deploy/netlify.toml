@@ -1,5 +1,5 @@
 [build]  
-command = "echo Building Functions"  
+command = "npm install && npm run build"  
 functions = "netlify-functions"   
 
 publish = "Counties and Unitary Authorities in England Api Deploy/views"    
