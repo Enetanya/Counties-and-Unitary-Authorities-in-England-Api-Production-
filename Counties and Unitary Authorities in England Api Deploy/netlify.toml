@@ -1,4 +1,4 @@
-# `#` (hash symbol)
+
 [build]
   command = "npm install && npm run build"
   functions = "netlify-functions"
@@ -8,10 +8,9 @@
 [functions]
   node_bundler = "esbuild"
 
-# \n (newline)
+
 [[redirects]]
   force = true
   from = "/api/*"
   status = 200
   to = "/.netlify/functions/api/:splat"
-# \r (carriage return)
