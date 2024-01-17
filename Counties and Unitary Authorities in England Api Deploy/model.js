@@ -1,5 +1,5 @@
 
-const mongoose = require('./connection.js').mongoose;
+const mongoose = require('./connection.js');
 
 // User schema and model
 const userSchema = new mongoose.Schema({ 
