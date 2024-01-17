@@ -28,6 +28,9 @@
     "pug": "^3.0.2",
     "serverless-http": "^3.2.0"
   },
+ "scripts": {
+   "build": "npm run build"
+  }
   "devDependencies": {
     "npx": "^10.2.2"
   }
