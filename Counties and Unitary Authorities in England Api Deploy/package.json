@@ -30,7 +30,7 @@
   },
  "scripts": {
    "build": "npm run build"
-  }
+  },
   "devDependencies": {
     "npx": "^10.2.2"
   }
