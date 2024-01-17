@@ -3,8 +3,10 @@
   functions = "netlify-functions"  
   publish = "Counties and Unitary Authorities in England Deploy/views"  
   runtime = "nodejs20.x"
+
 [functions]  
   node_bundler = "esbuild"
+
 [[redirects]]  
   force = true  
   from = "/api/*"  
