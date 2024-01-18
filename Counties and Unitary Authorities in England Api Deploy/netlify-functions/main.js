@@ -44,10 +44,10 @@ router.post('/generateApiKey', async function(req, res) {
     const apiKeyDocument = new ApiKey({ key: apiKey });
     await apiKeyDocument.save();
     
-    res.render('documentationPage', { apiKey, success: 'API key generated successfully!' });
+    res.json({ apiKey, success: 'API key generated successfully!' });
   } catch (err) {
     console.error(err);
-    res.render('documentationPage', { error: 'Error generating API key.' });
+    res.status(500).json({ error: 'Error generating API key.' });
   }
 });
 
