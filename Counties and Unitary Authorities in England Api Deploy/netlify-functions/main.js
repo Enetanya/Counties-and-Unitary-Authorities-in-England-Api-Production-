@@ -88,7 +88,7 @@ function authenticateAPIKey(req, res, next) {
 
 
 // GET endpoint to retrieve all counties (protected by API key)
-router.get('/place', authenticateAPIKey, async function(req, res) {
+router.get('/place', async function(req, res) {
   try {
     const counties = await County.find().exec();
     res.json(counties);
