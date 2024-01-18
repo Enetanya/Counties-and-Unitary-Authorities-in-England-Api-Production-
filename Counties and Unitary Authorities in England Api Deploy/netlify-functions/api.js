@@ -53,22 +53,24 @@ export const handler = serverless(api); */
 
 
 
+const pug = require('pug');
 const express = require('express');
 const serverless = require('serverless-http');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
-const pug = require('pug');
 const authMiddleware = require('./authenticationJsonToken');
 const changeMiddleware = require('./changeLoginDetails');
 const mainMiddleware = require('./main');
+const path = require('path');  // Added path module for constructing file paths
 
 const app = express();
 const router = express.Router();
 
 // View engine setup
 app.set('view engine', 'pug');
-app.set('views', './views');
+// Adjust the path to the 'views' directory based on your project structure
+app.set('views', path.join(__dirname, '../../views'));
 
 // Middleware setup
 app.use(cookieParser());
@@ -85,6 +87,7 @@ router.use('/forgot', (req, res, next) => changeMiddleware(req, res, next));
 // Use route for the main API
 router.use('/main', (req, res, next) => mainMiddleware(req, res, next));
 
-app.use('/api/', router);
+// Adjust the base route to align with the Netlify function's route
+app.use('/', router);
 
 module.exports.handler = serverless(app);
