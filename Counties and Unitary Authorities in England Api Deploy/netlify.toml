@@ -1,9 +1,9 @@
-
 [build]
   command = "npm install && npm run build"
   functions = "netlify-functions"
   publish = "views"
   runtime = "nodejs20.x"
+  timeout = 20 
 
 [functions]
   node_bundler = "esbuild"
