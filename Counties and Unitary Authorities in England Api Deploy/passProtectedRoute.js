@@ -29,7 +29,7 @@ async function authenticatePasswords(req, res, next) {
             { message: 'Error authenticating passwords.' });
          }}
          
-         module.exports = {authenticatePasswords, PasswordModel};
+         module.exports = authenticatePasswords;
 
 
 
