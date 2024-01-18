@@ -7,6 +7,7 @@ import authMiddleware from './authenticationJsonToken';
 import changeMiddleware from './changeLoginDetails';
 import mainMiddleware from './main';
 
+
 const api = express();
 const router = express.Router();
 
@@ -57,6 +58,7 @@ const serverless = require('serverless-http');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+const pug = require('pug');
 const authMiddleware = require('./authenticationJsonToken');
 const changeMiddleware = require('./changeLoginDetails');
 const mainMiddleware = require('./main');
