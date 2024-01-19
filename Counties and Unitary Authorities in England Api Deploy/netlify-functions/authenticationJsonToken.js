@@ -12,7 +12,7 @@ const secretKey = '1234567890';
 
 // Signup route
 router.get('/signup', function(req, res){
-    res.render('signup', { message: null });
+    res.render(path.join(__dirname, '../views/signup'), { message: null });
 });
 
 
