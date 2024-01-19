@@ -68,7 +68,7 @@ const app = express();
 const router = express.Router();
 
 // View engine setup
-app.engine('pug',require('pug')._express);
+//app.engine('pug',require('pug')._express);
 app.set('view engine','pug');
 app.set('views',path.join(__dirname, '../../views'));
 
