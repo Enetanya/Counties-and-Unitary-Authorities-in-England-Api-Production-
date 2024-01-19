@@ -68,8 +68,8 @@ const app = express();
 const router = express.Router();
 
 // View engine setup
+app.engine('pug',require('pug')._express);
 app.set('view engine', 'pug');
-// Adjust the path to the 'views' directory based on your project structure
 app.set('views', path.join(__dirname, '../../views'));
 
 // Middleware setup
