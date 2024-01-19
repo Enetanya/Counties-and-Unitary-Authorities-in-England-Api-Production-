@@ -69,8 +69,8 @@ const router = express.Router();
 
 // View engine setup
 app.engine('pug',require('pug')._express);
-app.set('view engine', 'pug');
-app.set('views', path.join(__dirname, '../../views'));
+app.set('view engine','pug');
+app.set('views',path.join(__dirname, '../../views'));
 
 // Middleware setup
 app.use(cookieParser());
