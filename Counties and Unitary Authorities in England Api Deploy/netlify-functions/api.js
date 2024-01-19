@@ -53,7 +53,7 @@ export const handler = serverless(api); */
 
 
 
-const pug = require('pug');
+//const pug = require('pug');
 const express = require('express');
 const serverless = require('serverless-http');
 const bodyParser = require('body-parser');
