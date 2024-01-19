@@ -5,8 +5,6 @@
   runtime = "nodejs20.x"
   timeout = 20 
 
-[functions]
-  node_bundler = "esbuild"
 
 [[redirects]]
   force = true
