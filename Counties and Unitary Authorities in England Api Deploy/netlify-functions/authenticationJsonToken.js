@@ -1,6 +1,7 @@
 
 const express = require('express');
 const app = express();
+const path = require('path');
 const router = express.Router();
 const jwt = require('jsonwebtoken'); // JWT library
 const User = require('../model.js');
