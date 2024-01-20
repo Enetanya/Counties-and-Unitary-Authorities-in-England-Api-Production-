@@ -1,7 +1,7 @@
 [build]
-  command = "npm install && npm run build && node node_modules/pug-cli/api.js views/ --out ./"
+  command = "npm install && npm run build 
   functions = "netlify-functions"
-  publish = "views"
+  publish = "public"
   runtime = "nodejs20.x"
   timeout = 20
 
