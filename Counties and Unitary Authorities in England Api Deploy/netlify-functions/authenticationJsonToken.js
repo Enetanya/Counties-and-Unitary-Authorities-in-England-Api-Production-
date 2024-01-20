@@ -11,9 +11,10 @@ const User = require('../model.js');
 const secretKey = '1234567890';
 
 
-// Signup route
+// Custom route to serve signup.html
 router.get('/signup', (req, res) => {
-  res.sendFile(path.join(__dirname, '../public/signup.html'));
+  const filePath = path.resolve(__dirname, '../public', 'signup.html');
+  res.sendFile(filePath);
 });
 
 // Signup route with validation
