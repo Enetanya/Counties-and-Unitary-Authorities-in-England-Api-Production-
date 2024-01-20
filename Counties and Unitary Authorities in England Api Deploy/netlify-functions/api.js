@@ -29,12 +29,6 @@ router.use('/forgot', changeMiddleware);
 // Use route for the main API
 router.use('/main', mainMiddleware);
 
-// Custom route to serve signup.html
-router.get('/signup', (req, res) => {
-  const filePath = path.resolve(__dirname, '../public', 'signup.html');
-  res.sendFile(filePath);
-});
-
 // Aligns with the Netlify function's route
 app.use('/', router);
 
