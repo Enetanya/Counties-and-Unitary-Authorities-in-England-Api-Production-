@@ -35,7 +35,7 @@ app.use('/', router);
 // Set HTML as the default view engine
 app.engine('html', (filePath, options, callback) => {
   // Function to render HTML files
-  res.sendFile(filePath);
+  res.sendFile(path.join(__dirname, '../public', filePath));
 });
 
 app.set('view engine', 'html');
