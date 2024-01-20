@@ -12,10 +12,9 @@ const secretKey = '1234567890';
 
 
 // Signup route
-router.get('/signup', function(req, res){
-    res.render('signup', { message: null });
+router.get('/signup', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/signup.html'));
 });
-
 
 // Signup route with validation
 router.post('/signup', async function(req, res){
