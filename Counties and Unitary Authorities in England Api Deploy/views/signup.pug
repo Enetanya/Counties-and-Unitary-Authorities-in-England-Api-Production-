@@ -1,33 +1,35 @@
-doctype html
-html(lang="en")
-  head
-    title Signup 
-  body
-    h1 Welcome to Counties and Unitary Authorities in England API
-    h3 Enter your details below and Signup 
-    form(action="/auth/signup", method="POST") 
-      input(name="email", type="email", required, placeholder="Enter email address") 
-      input(name="id", type="text", required, placeholder="New User ID") 
-      input(name="password", type="password", required, placeholder="Enter Password") 
-      button(type="submit") Signup
-      p.message= message
-      br
-      br
-      a(href='/forgot/forgot-password') Forgot Password?
-      br
-      br
-      p 
-        | 1. Email: Use a functional email address. 
-      p 
-        | 2. ID Rule: Create an ID at least 8 characters long, using only letters, uppercase/lowercase. 
-      p 
-        | 3. Password Rule: Generate a password at least 8 characters long, including one uppercase letter, one lowercase letter, one number, and one special character.
-      br
-      br
-      br 
-    h3 Login below if you already have an existing account
-    br
-    form(action="/auth/login", method="POST")  
-      input(name="id", type="text", required, placeholder="Enter User ID") 
-      input(name="password", type="password", required, placeholder="Enter Password") 
-      button(type="submit") Login
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Signup</title>
+  </head>
+  <body>
+    <h1>Welcome to Counties and Unitary Authorities in England API</h1>
+    <h3>Enter your details below and Signup</h3>
+    <form action="/auth/signup" method="POST">
+      <input name="email" type="email" required placeholder="Enter email address">
+      <input name="id" type="text" required placeholder="New User ID">
+      <input name="password" type="password" required placeholder="Enter Password">
+      <button type="submit">Signup</button>
+      <p class="message">{{message}}</p>
+      <br>
+      <br>
+      <a href='/forgot/forgot-password'>Forgot Password?</a>
+      <br>
+      <br>
+      <p>1. Email: Use a functional email address.</p>
+      <p>2. ID Rule: Create an ID at least 8 characters long, using only letters, uppercase/lowercase.</p>
+      <p>3. Password Rule: Generate a password at least 8 characters long, including one uppercase letter, one lowercase letter, one number, and one special character.</p>
+      <br>
+      <br>
+      <br>
+    </form>
+    <h3>Login below if you already have an existing account</h3>
+    <br>
+    <form action="/auth/login" method="POST">
+      <input name="id" type="text" required placeholder="Enter User ID">
+      <input name="password" type="password" required placeholder="Enter Password">
+      <button type="submit">Login</button>
+    </form>
+  </body>
+</html>
