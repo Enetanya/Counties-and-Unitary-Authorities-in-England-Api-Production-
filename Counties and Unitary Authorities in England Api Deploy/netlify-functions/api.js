@@ -21,16 +21,24 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
 // Apply authentication middleware
-router.use('/auth', (req, res, next) => authMiddleware(req, res, next));
+router.use('/auth', authMiddleware);
 
 // Use route to change login details
-router.use('/forgot', (req, res, next) => changeMiddleware(req, res, next));
+router.use('/forgot', changeMiddleware);
 
 // Use route for the main API
-router.use('/main', (req, res, next) => mainMiddleware(req, res, next));
+router.use('/main', mainMiddleware);
 
 // Aligns with the Netlify function's route
 app.use('/', router);
+
+// Set HTML as the default view engine
+app.engine('html', (filePath, options, callback) => {
+  // Function to render HTML files
+  res.sendFile(filePath);
+});
+
+app.set('view engine', 'html');
 
 // Serverless setup
 module.exports.handler = serverless(app);
