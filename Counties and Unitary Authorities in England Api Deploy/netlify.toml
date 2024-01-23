@@ -1,7 +1,7 @@
 [build]
   command = "npm install && npm run build"
   functions = "netlify-functions"
-  publish = "public"
+  publish = "./public"
   runtime = "nodejs20.x"
   timeout = 20
   included_files = ["./public/**"]
