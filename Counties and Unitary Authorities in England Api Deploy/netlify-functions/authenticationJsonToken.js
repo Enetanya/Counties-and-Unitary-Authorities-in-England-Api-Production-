@@ -13,7 +13,7 @@ const secretKey = '1234567890';
 
 // Custom route to serve signup.html
 router.get('/signup', (req, res) => {
-  const filePath = path.resolve(__dirname,'./public/signup.html');
+  const filePath = path.resolve(__dirname,'../public/signup.html');
   res.sendFile(filePath);
 });
 
