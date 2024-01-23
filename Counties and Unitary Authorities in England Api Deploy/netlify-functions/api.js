@@ -12,7 +12,7 @@ const app = express();
 const router = express.Router();
 
 // Serve static HTML files from the public directory
-app.use(express.static(path.join(__dirname, '../public')));
+app.use(express.static(path.join(__dirname,'../public')));
 
 // Middleware setup
 app.use(cookieParser());
