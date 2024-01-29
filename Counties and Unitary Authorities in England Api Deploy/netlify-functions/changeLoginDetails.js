@@ -53,12 +53,9 @@ router.post('/submit-email', async (req, res) => {
 transporter.sendMail(mailOptions, function 
     (error, info) {  
         if (error) { 
-            console.log(error); 
-            res.send('Failed to send email'); 
+           res.send({error:'Failed to send email'}); 
           } else { 
-            console.log('Email sent: ' + 
-            info.response); 
-            res.send('Check your email to change login details. The link expires in 15 minutes.'); 
+            res.send({success:'Check your email to change login details. The link expires in 15 minutes.'}); 
         } 
     });
 });
