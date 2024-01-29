@@ -10,13 +10,6 @@ const User = require('../model.js');
 // Secret key for JWT
 const secretKey = '1234567890';
 
-
-// Custom route to serve signup.html
-router.get('/signup', (req, res) => {
-  const filePath = path.resolve(__dirname, './charming-figolla-3e81b7/signup.html');
-  res.sendFile(filePath);
-});
-
 // Signup route with validation
 router.post('/signup', async function(req, res){
     try {
@@ -66,9 +59,9 @@ router.post('/login', async function(req, res){
             if(foundUser){
                 const token = jwt.sign({ id: foundUser.id }, secretKey);
                 res.cookie('token', token);
-                res.redirect('/auth/documentationPage');
+                res.send(message: "sucess");
             } else {
-                res.render('login', { message: "Invalid credentials!" });
+                res.send({ message: "Invalid credentials!" });
             }
         } catch(err) {
             console.error(err);
