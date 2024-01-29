@@ -37,7 +37,7 @@ router.post('/signup', async function(req, res){
         // Create new user (example save, adjust as per your setup)
         const newUser = new User({ id, password, email });
         await newUser.save();
-        return res.send({ message: 'sucess' });
+        return res.send({ message: 'success' });
     } catch(err) {
         console.error(err);
         return res.send({ message: 'Internal Server Error' });
@@ -58,8 +58,8 @@ router.post('/login', async function(req, res){
             const foundUser = await User.findOne({ id: req.body.id, password: req.body.password }).exec();
             if(foundUser){
                 const token = jwt.sign({ id: foundUser.id }, secretKey);
-                res.cookie({message:token});
-                res.send({message: "sucess"});
+                res.cookie('token', token);
+                res.send({message: "success"});
             } else {
                 res.send({ message: "Invalid credentials!" });
             }
