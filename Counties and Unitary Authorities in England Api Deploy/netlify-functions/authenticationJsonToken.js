@@ -20,18 +20,18 @@ router.post('/signup', async function(req, res){
         
        // Validation for 'id'
         if (!/^[a-zA-Z]{8,}$/.test(id)) {
-            return res.render('signup', { message: "Invalid 'id' format! It should be at least 8 characters long and contain only letters." });
+            return res.send({ message: "Invalid 'id' format! It should be at least 8 characters long and contain only letters." });
         }
  
         // Validation for 'password'
         if (!/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!£@#$%^&*()_+])[a-zA-Z0-9!£@#$%^&*()_+]{8,}$/.test(password)) {
-            return res.render('signup', { message: "Invalid 'password' format! It should contain at least one letter, one number, one special character, and be at least 8 characters long." });
+            return res.send( { message: "Invalid 'password' format! It should contain at least one letter, one number, one special character, and be at least 8 characters long." });
         }
  
         // Check if email already exists (example query, adjust as per your setup)
         const existingUser = await User.findOne({ email }).exec();
         if (existingUser) {
-            return res.render('signup', { message: "Email already exists! Please choose another Email" });
+            return res.send( { message: "Email already exists! Please choose another Email" });
         }
  
         // Create new user (example save, adjust as per your setup)
@@ -40,19 +40,19 @@ router.post('/signup', async function(req, res){
         return res.send({ message: 'sucess' });
     } catch(err) {
         console.error(err);
-        return res.render({ message: 'Internal Server Error' });
+        return res.send({ message: 'Internal Server Error' });
     }
  });
  
  
 // Login route
 router.get('/login', function(req, res){
-    res.render('login');
+    res.send('login');
 });
 
 router.post('/login', async function(req, res){
     if (!req.body.id || !req.body.password) {
-        res.render('login', { message: "Please enter both id and password" });
+        res.send('login', { message: "Please enter both id and password" });
     } else {
         try {
             const foundUser = await User.findOne({ id: req.body.id, password: req.body.password }).exec();
