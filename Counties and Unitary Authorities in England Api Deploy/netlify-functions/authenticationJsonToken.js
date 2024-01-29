@@ -44,10 +44,10 @@ router.post('/signup', async function(req, res){
         // Create new user (example save, adjust as per your setup)
         const newUser = new User({ id, password, email });
         await newUser.save();
-        return res.redirect('/auth/login');
+        return res.send({ message: 'sucess' });
     } catch(err) {
         console.error(err);
-        return res.render('signup', { message: 'Internal Server Error' });
+        return res.render({ message: 'Internal Server Error' });
     }
  });
  
