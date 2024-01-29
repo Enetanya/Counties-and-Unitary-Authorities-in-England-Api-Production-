@@ -10,6 +10,13 @@ const User = require('../model.js');
 // Secret key for JWT
 const secretKey = '1234567890';
 
+// Signup route
+router.get('/signup', function(req, res){
+    res.send('signup');
+});
+
+
+
 // Signup route with validation
 router.post('/signup', async function(req, res){
     try {
