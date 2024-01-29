@@ -55,7 +55,7 @@ transporter.sendMail(mailOptions, function
         if (error) { 
            res.send({error:'Failed to send email'}); 
           } else { 
-            res.send({success:'Check your email to change login details. The link expires in 15 minutes.'}); 
+            res.send({message:'success'}); 
         } 
     });
 });
