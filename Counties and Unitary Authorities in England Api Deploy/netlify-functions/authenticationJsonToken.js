@@ -59,7 +59,7 @@ router.post('/login', async function(req, res){
             if(foundUser){
                 const token = jwt.sign({ id: foundUser.id }, secretKey);
                 res.cookie({message:token});
-                res.send(message: "sucess");
+                res.send({message: "sucess"});
             } else {
                 res.send({ message: "Invalid credentials!" });
             }
