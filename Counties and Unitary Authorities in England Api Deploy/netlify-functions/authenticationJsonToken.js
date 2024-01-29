@@ -54,12 +54,12 @@ router.post('/signup', async function(req, res){
  
 // Login route
 router.get('/login', function(req, res){
-    res.send('login');
+    res.render('login');
 });
 
 router.post('/login', async function(req, res){
     if (!req.body.id || !req.body.password) {
-        res.send('login', { message: "Please enter both id and password" });
+        res.send({ message: "Please enter both id and password" });
     } else {
         try {
             const foundUser = await User.findOne({ id: req.body.id, password: req.body.password }).exec();
@@ -85,7 +85,6 @@ router.get('/documentationPage', verifyToken, function(req, res){
 // Logout route
 router.get('/logout', function(req, res){
     res.clearCookie('token');
-    console.log('User logged out.');
     res.redirect('/auth/login');
 });
 
