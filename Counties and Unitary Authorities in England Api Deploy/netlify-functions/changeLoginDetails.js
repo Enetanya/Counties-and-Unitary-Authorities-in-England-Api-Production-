@@ -5,6 +5,8 @@ const router = express.Router();
 const nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken'); // Importing JWT library
 const User = require('../model.js');
+const AWS = require('aws-sdk');
+
 
 
 // Secret key for JWT
@@ -61,15 +63,35 @@ transporter.sendMail(mailOptions, function
 });
 
 // Endpoint to handle changing login details with token verification
-router.get('/change-login-details/:token', (req, res) => 
-{ const token = req.params.token;
- jwt.verify(token, secretKey, (err, decoded) => 
- { if (err) { return res.send('Invalid or expired token'); }
- // Render a page to update login details 
- res.send('newLoginDetails', { email: 
-    decoded.email }); 
+
+router.get('/change-login-details/:token', (req, res) => {
+  const token = req.params.token;
+
+  jwt.verify(token, secretKey, (err, decoded) => {
+    if (err) {
+      return res.send('Invalid or expired token');
+    }
+
+    // Publish a message to AWS SNS after token verification
+    const sns = new AWS.SNS();
+    const publishParams = {
+      TopicArn: 'your-sns-topic-arn', // Replace with your actual SNS topic ARN
+      Message: 'Token successfully validated. Trigger React update.',
+    };
+
+    sns.publish(publishParams, (err, data) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).json({ error: 'Internal Server Error' });
+      } else {
+        console.log('Message published:', data.MessageId);
+        return res.status(200).json({ success: true });
+      }
+    });
+  });
 });
-});
+
+
 // Handling the form submission for updating login details
 router.post('/update-login-details', async (req, res) => 
 { let { email, newId, newPassword } = req.body;
