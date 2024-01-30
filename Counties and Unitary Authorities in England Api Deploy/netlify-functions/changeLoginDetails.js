@@ -100,7 +100,7 @@ try {
             email, error: 'User not found' }); 
         }
  // Render the form with the success message 
- res.render('newLoginDetails', { email, 
+ res.send('newLoginDetails', { email, 
     success: 'Your login details have been successfully updated. Click the Login link below to continue.' 
 });
  } catch (err) { 
