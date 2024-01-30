@@ -62,8 +62,8 @@ transporter.sendMail(mailOptions, function
     });
 });
 
-// Endpoint to handle changing login details with token verification
 
+// Endpoint to handle changing login details with token verification
 router.get('/change-login-details/:token', (req, res) => {
   const token = req.params.token;
 
