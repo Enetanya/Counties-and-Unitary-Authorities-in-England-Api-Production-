@@ -105,7 +105,7 @@ function verifyToken(req, res, next) {
 }
 
 
-// Error handling middleware which handles any unhandled errors in the  application
+// Error handling middleware which handles any unhandled errors in the  application.
 app.use((err,req,res,next)=>
 {console.error(err.stack);// Log the error stack trace
 res.status(500).send('Something went wrong')
