@@ -75,7 +75,7 @@ router.get('/change-login-details/:token', (req, res) => {
     // Publish a message to AWS SNS after token verification
     const sns = new AWS.SNS();
     const publishParams = {
-      TopicArn: 'your-sns-topic-arn', // Replace with your actual SNS topic ARN
+      TopicArn:  'arn:aws:sns:eu-north-1:745109517592:Counties_and_Unitary_Authorities_in_England_Api', // SNS topic ARN
       Message: 'Token successfully validated. Trigger React update.',
     };
 
