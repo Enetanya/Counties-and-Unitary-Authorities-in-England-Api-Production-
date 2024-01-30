@@ -66,7 +66,7 @@ router.get('/change-login-details/:token', (req, res) =>
  jwt.verify(token, secretKey, (err, decoded) => 
  { if (err) { return res.send('Invalid or expired token'); }
  // Render a page to update login details 
- res.render('newLoginDetails', { email: 
+ res.send('newLoginDetails', { email: 
     decoded.email }); 
 });
 });
