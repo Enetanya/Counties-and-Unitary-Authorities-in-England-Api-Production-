@@ -2,22 +2,14 @@ const express = require('express');
 const app = express();
 const router = express.Router();
 const nodemailer = require('nodemailer');
-const jwt = require('jsonwebtoken'); // Importing JWT library
 const User = require('../model.js');
-const AWS = require('aws-sdk');
 
 
 
-// Secret key for JWT
-const secretKey = '1234567890';
 
-// Generate JWT token with email and expiration time
-function generateToken(email) { 
-    return jwt.sign({ email }, 
-        secretKey, 
-        { expiresIn: '15m' });}
 
-        // Routes
+
+        // Routes to input email 
 router.get('/forgot-password', (req, res) => { 
     res.render('forgotPassword'); // Render the page to enter email
 });
@@ -29,8 +21,8 @@ router.post('/submit-email', async (req, res) => {
     return res.send('Email not found in our records'
     ); 
 }
- const token = generateToken(email); 
- const changeLink = `https://charming-figolla-3e81b7.netlify.app/forgot/change-login-details/${token}`;
+
+ const changeLink = `https://charming-figolla-3e81b7.netlify.app/forgot/change-login-details`;
  
  // Create a nodemailer transporter 
  const transporter = 
@@ -62,19 +54,14 @@ transporter.sendMail(mailOptions, function
 });
 
 
-// Endpoint to handle changing login details with token verification
-router.get('/change-login-details/:token', (req, res) => {
-  const token = req.params.token;
-
-  jwt.verify(token, '1234567890', (err, decoded) => {
-    if (err) {
-      return res.status(401).json({ error: 'Invalid or expired token' });
-    }
-
-    // Render a page to update login details
+// Endpoint to handle logging from email link .
+router.get('/change-login-details', (req, res) => {
+ 
+  // Render success message 
     res.status(200).json({ message: 'success' });
   });
 });
+
 
 // Handling the form submission for updating login details
 router.post('/update-login-details', async (req, res) => 
