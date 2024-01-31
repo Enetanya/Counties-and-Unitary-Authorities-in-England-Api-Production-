@@ -66,30 +66,15 @@ transporter.sendMail(mailOptions, function
 router.get('/change-login-details/:token', (req, res) => {
   const token = req.params.token;
 
-  jwt.verify(token, secretKey, (err, decoded) => {
+  jwt.verify(token, '1234567890', (err, decoded) => {
     if (err) {
-      return res.send('Invalid or expired token');
+      return res.status(401).json({ error: 'Invalid or expired token' });
     }
 
-    // Publish a message to AWS SNS after token verification
-    const sns = new AWS.SNS();
-    const publishParams = {
-      TopicArn:  'arn:aws:sns:eu-north-1:745109517592:Counties_and_Unitary_Authorities_in_England_Api', // SNS topic ARN
-      Message: 'Token successfully validated. Trigger React update.',
-    };
-
-    sns.publish(publishParams, (err, data) => {
-      if (err) {
-        console.error(err);
-        return res.status(500).json({ error: 'Internal Server Error' });
-      } else {
-        console.log('Message published:', data.MessageId);
-        return res.status(200).json({ success: true });
-      }
-    });
+    // Render a page to update login details
+    res.status(200).json({ message: 'success' });
   });
 });
-
 
 // Handling the form submission for updating login details
 router.post('/update-login-details', async (req, res) => 
