@@ -3,10 +3,13 @@ const app = express();
 const router = express.Router();
 const nodemailer = require('nodemailer');
 const User = require('../model.js');
+const jwt = require('jsonwebtoken'); // Importing JWT library
 
 
-
-
+// Generate JWT token with email and expiration time
+function generateToken(email) {
+  return jwt.sign({ email }, '1234567890', { expiresIn: '15m' });
+}
 
 
         // Routes to input email 
@@ -22,7 +25,8 @@ router.post('/submit-email', async (req, res) => {
     ); 
 }
 
- const changeLink = `https://charming-figolla-3e81b7.netlify.app/forgot/change-login-details`;
+ const token = generateToken(email);
+  const changeLink = `http://localhost:3000/forgot/change-login-details/${token}`;
  
  // Create a nodemailer transporter 
  const transporter = 
