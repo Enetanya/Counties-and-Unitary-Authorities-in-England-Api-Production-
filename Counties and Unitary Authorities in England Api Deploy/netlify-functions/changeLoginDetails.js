@@ -54,12 +54,18 @@ transporter.sendMail(mailOptions, function
 });
 
 
-// Endpoint to handle logging from email link .
+// Endpoint to handle logging from the email link.
 router.get('/change-login-details', (req, res) => {
  
-  // Render success message 
+  const isError = false;
+
+  if (isError) {
+    // Respond with an error status and message.
+    res.status(500).json({ error: 'Internal Server Error' });
+  } else {
+    // Respond with a success status and message.
     res.status(200).json({ message: 'success' });
-  });
+  }
 });
 
 
