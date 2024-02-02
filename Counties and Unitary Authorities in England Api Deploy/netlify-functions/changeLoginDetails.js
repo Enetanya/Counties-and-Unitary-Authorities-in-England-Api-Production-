@@ -77,8 +77,6 @@ router.get('/change-login-details/:token', (req, res) => {
 
 
 
-
-
 // SSE message sender endpoint
 router.get('/message-sender', (req, res) => {
   // Set up headers for SSE
