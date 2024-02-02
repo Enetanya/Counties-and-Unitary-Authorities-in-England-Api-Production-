@@ -4,8 +4,6 @@ const router = express.Router();
 const nodemailer = require('nodemailer');
 const User = require('../model.js');
 const jwt = require('jsonwebtoken'); // Importing JWT library
-const dbConnection = require('../connection'); 
-
 
 
 // Generate JWT token with email and expiration time
@@ -61,62 +59,28 @@ transporter.sendMail(mailOptions, function
 
 
 
-// Define the Verify model
-const VerifySchema = dbConnection.Schema({
-  email: {
-    type: String,
-    required: true
-  },
-  verification: {
-    type: String,
-    enum: ['pass', 'fail'],
-    required: true
-  }
-}, { timestamps: true });
-
-const Verify = dbConnection.model('Verify', VerifySchema, 'Verification');
-
-
 // Handling the token verification
-router.get('/change-login-details/:token', async (req, res) => {
+router.get('/change-login-details/:token', (req, res) => { 
   const token = req.params.token;
+  jwt.verify(token, secretKey, (err, decoded) => { 
+    if (err) { 
+      return res.send('Invalid or expired token'); 
+    }
+    // Render a page to update login details 
+    res.render('newLoginDetails'); // <-- Fix typo in the render function
 
-try {
-  const decoded = await new Promise((resolve, reject) => {
-    jwt.verify(token, '1234567890', (err, decoded) => {
-      if (err) {
-        reject('Invalid or expired token');
-      } else {
-        resolve(decoded);
-      }
-    });
+    // Redirect to '/message-sender'
+    res.redirect('/message-sender');
   });
-
-  //  verification logic: Check if the decoded object has a valid email
-  const verificationStatus = decoded && decoded.email ? 'pass' : 'fail';
-
-  // Create a new document in the 'Verification' collection with email and verification status
-  await Verify.create({ email: decoded.email, verification: verificationStatus });
-
-  if (verificationStatus === 'pass') {
-    // Render a page to update login details
-    res.render('new-login-details', { email: decoded.email });
-  } else {
-    // Handle the case where verification fails and redirect to an error page
-    res.render('verification-failed');
-  }
-} catch (error) {
-  // Handle errors during token verification or database interaction
-  res.status(500).send(`Error: ${error}`);
-}
 });
 
 
 
 
 
-// SSE endpoint
-router.get('/sse-endpoint', (req, res) => {
+
+// SSE message sender endpoint
+router.get('/message-sender', (req, res) => {
   // Set up headers for SSE
   res.setHeader('Content-Type', 'text/event-stream');
   res.setHeader('Cache-Control', 'no-cache');
@@ -127,27 +91,12 @@ router.get('/sse-endpoint', (req, res) => {
     res.write(`data: ${JSON.stringify(data)}\n\n`);
   };
 
-  // Send initial message
-  sendSSEMessage({ status: 'Initial message' });
-
-  // Watch for changes in the MongoDB collection
-  const changeStream = Verify.watch();
-  changeStream.on('change', async (change) => {
-    if (change.operationType === 'insert') {
-      // If a new document is inserted, retrieve and send it as a message
-      const newDocument = await Verify.findById(change.documentKey._id);
-      sendSSEMessage({ status: newDocument.status });
-
-      // Set a timeout to delete the document after 10 minutes
-      setTimeout(async () => {
-        await Verify.findByIdAndDelete(newDocument._id);
-      }, 10 * 60 * 1000); // 10 minutes in milliseconds
-    }
-  });
+  // Send 'successful' as an SSE message
+  sendSSEMessage({ status: 'successful' });
 
   // Handle connection close
   req.on('close', () => {
-    changeStream.close();
+    // Close the change stream and end the response
     res.end();
   });
 });
