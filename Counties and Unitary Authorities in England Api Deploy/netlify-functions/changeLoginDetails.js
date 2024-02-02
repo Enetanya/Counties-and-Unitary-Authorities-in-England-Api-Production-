@@ -4,7 +4,7 @@ const router = express.Router();
 const nodemailer = require('nodemailer');
 const User = require('../model.js');
 const jwt = require('jsonwebtoken'); // Importing JWT library
-const dbConnection = require('./connection'); 
+const dbConnection = require('../connection'); 
 
 
 
