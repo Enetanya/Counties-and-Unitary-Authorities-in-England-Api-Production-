@@ -88,7 +88,7 @@ app.get('/change-login-details/:token', async (req, res) => {
         }
       });
     });
- // Determine verification status based on your conditions
+ 
     const verificationStatus = /*verification logic */ decoded ? 'pass' : 'fail';
 
     // Create a new document in the 'Verification' collection with email and verification status
