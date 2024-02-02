@@ -4,6 +4,8 @@ const router = express.Router();
 const nodemailer = require('nodemailer');
 const User = require('../model.js');
 const jwt = require('jsonwebtoken'); // Importing JWT library
+const dbConnection = require('./connection'); 
+
 
 
 // Generate JWT token with email and expiration time
@@ -24,7 +26,6 @@ router.post('/submit-email', async (req, res) => {
     return res.send('Email not found in our records'
     ); 
 }
-
  const token = generateToken(email);
   const changeLink = `http://localhost:3000/forgot/change-login-details/${token}`;
  
@@ -58,17 +59,80 @@ transporter.sendMail(mailOptions, function
 });
 
 
-// Endpoint to handle logging from the email link.
-router.get('/change-login-details', (req, res) => {
- 
-  const isError = false;
 
-  if (isError) {
-    // Respond with an error status and message.
-    res.status(500).json({ error: 'Internal Server Error' });
-  } else {
-    // Respond with a success status and message.
-    res.status(200).json({ message: 'success' });
+// Define the Verify model
+const Verify = dbConnection.model('Verify', {
+  email: {
+    type: String,
+    required: true
+  },
+  verification: {
+    type: String,
+    enum: ['pass', 'fail'],
+    required: true
+  }
+}, 'Verification');
+
+
+// Handling the token verification
+app.get('/change-login-details/:token', async (req, res) => {
+  const token = req.params.token;
+
+  try {
+    const decoded = await new Promise((resolve, reject) => {
+      jwt.verify(token, '1234567890', (err, decoded) => {
+        if (err) {
+          reject('Invalid or expired token');
+        } else {
+          resolve(decoded);
+        }
+      });
+    });
+ // Determine verification status based on your conditions
+    const verificationStatus = /*verification logic */ decoded ? 'pass' : 'fail';
+
+    // Create a new document in the 'Verification' collection with email and verification status
+    await Verify.create({ email: decoded.email, verification: verificationStatus });
+
+    // Render a page to update login details
+    res.render('new-login-details', { email: decoded.email });
+  } catch (error) {
+    // Handle errors during token verification or database interaction
+    res.status(500).send(`Error: ${error}`);
+  }
+});
+
+
+// Checking for verification status 
+app.get('/check-verification/:email', async (req, res) => {
+  try {
+    const email = req.params.email;
+
+    const getResult = async () => {
+      const result = await Verify.findOneAndDelete({ email });
+      if (!result) {
+        // If document not found, throw an error
+        throw new Error('Document not found');
+      }
+      // Return the verification status
+      res.send(`Verification status for ${email}: ${result.verification}`);
+    };
+
+    // Set a maximum timeout of 15 minutes (900000 milliseconds)
+    const resultPromise = getResult();
+    const timeoutPromise = new Promise((_, reject) =>
+      setTimeout(() => reject(new Error('Timeout exceeded')), 900000)
+    );
+
+    // Use Promise.race to handle either getting the result or the timeout
+    await Promise.race([resultPromise, timeoutPromise]);
+  } catch (err) {
+    if (err.message === 'Timeout exceeded') {
+      res.status(408).send('Timeout exceeded while waiting for verification record');
+    } else {
+      // Handle other errors (e.g., database error)
+      res.status(500).send('Error fetching and deleting verification record');
+    }
   }
 });
 
@@ -111,6 +175,10 @@ try {
         error: 'Error updating login details.' 
     }); 
 }});
+
+
+
+
 
 // Error handling middleware which handles any unhandled errors in the application 
 app.use((err,req,res,next)=>{console.error(err.stack);// Log the error stack trace
