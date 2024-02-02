@@ -71,7 +71,9 @@ const Verify = dbConnection.model('Verify', {
     enum: ['pass', 'fail'],
     required: true
   }
-}, 'Verification');
+}, 'Verification').schema({
+  timestamps: true
+});
 
 
 // Handling the token verification
