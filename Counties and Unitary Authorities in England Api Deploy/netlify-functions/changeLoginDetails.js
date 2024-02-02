@@ -78,8 +78,6 @@ const Verify = dbConnection.model('Verify', {
 app.get('/change-login-details/:token', async (req, res) => {
   const token = req.params.token;
 
-  // ...
-
 try {
   const decoded = await new Promise((resolve, reject) => {
     jwt.verify(token, '1234567890', (err, decoded) => {
