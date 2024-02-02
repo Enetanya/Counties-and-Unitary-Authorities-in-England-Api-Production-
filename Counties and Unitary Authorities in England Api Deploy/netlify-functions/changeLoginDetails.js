@@ -77,7 +77,7 @@ const Verify = dbConnection.model('Verify', {
 
 
 // Handling the token verification
-app.get('/change-login-details/:token', async (req, res) => {
+router.get('/change-login-details/:token', async (req, res) => {
   const token = req.params.token;
 
 try {
