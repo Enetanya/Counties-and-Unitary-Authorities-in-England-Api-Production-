@@ -108,13 +108,14 @@ try {
   // Handle errors during token verification or database interaction
   res.status(500).send(`Error: ${error}`);
 }
+});
 
 
 
 
 
 // SSE endpoint
-app.get('/sse-endpoint', (req, res) => {
+router.get('/sse-endpoint', (req, res) => {
   // Set up headers for SSE
   res.setHeader('Content-Type', 'text/event-stream');
   res.setHeader('Cache-Control', 'no-cache');
