@@ -91,7 +91,7 @@ try {
     });
   });
 
-  // Example verification logic: Check if the decoded object has a valid email
+  //  verification logic: Check if the decoded object has a valid email
   const verificationStatus = decoded && decoded.email ? 'pass' : 'fail';
 
   // Create a new document in the 'Verification' collection with email and verification status
@@ -108,6 +108,48 @@ try {
   // Handle errors during token verification or database interaction
   res.status(500).send(`Error: ${error}`);
 }
+
+
+
+
+
+// SSE endpoint
+app.get('/sse-endpoint', (req, res) => {
+  // Set up headers for SSE
+  res.setHeader('Content-Type', 'text/event-stream');
+  res.setHeader('Cache-Control', 'no-cache');
+  res.setHeader('Connection', 'keep-alive');
+
+  // Function to send SSE message
+  const sendSSEMessage = (data) => {
+    res.write(`data: ${JSON.stringify(data)}\n\n`);
+  };
+
+  // Send initial message
+  sendSSEMessage({ status: 'Initial message' });
+
+  // Watch for changes in the MongoDB collection
+  const changeStream = YourDataModel.watch();
+  changeStream.on('change', async (change) => {
+    if (change.operationType === 'insert') {
+      // If a new document is inserted, retrieve and send it as a message
+      const newDocument = await YourDataModel.findById(change.documentKey._id);
+      sendSSEMessage({ status: newDocument.status });
+
+      // Set a timeout to delete the document after 10 minutes
+      setTimeout(async () => {
+        await YourDataModel.findByIdAndDelete(newDocument._id);
+      }, 10 * 60 * 1000); // 10 minutes in milliseconds
+    }
+  });
+
+  // Handle connection close
+  req.on('close', () => {
+    changeStream.close();
+    res.end();
+  });
+});
+
 
 
 
