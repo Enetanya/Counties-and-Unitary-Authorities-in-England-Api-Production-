@@ -129,16 +129,16 @@ app.get('/sse-endpoint', (req, res) => {
   sendSSEMessage({ status: 'Initial message' });
 
   // Watch for changes in the MongoDB collection
-  const changeStream = YourDataModel.watch();
+  const changeStream = Verify.watch();
   changeStream.on('change', async (change) => {
     if (change.operationType === 'insert') {
       // If a new document is inserted, retrieve and send it as a message
-      const newDocument = await YourDataModel.findById(change.documentKey._id);
+      const newDocument = await Verify.findById(change.documentKey._id);
       sendSSEMessage({ status: newDocument.status });
 
       // Set a timeout to delete the document after 10 minutes
       setTimeout(async () => {
-        await YourDataModel.findByIdAndDelete(newDocument._id);
+        await Verify.findByIdAndDelete(newDocument._id);
       }, 10 * 60 * 1000); // 10 minutes in milliseconds
     }
   });
