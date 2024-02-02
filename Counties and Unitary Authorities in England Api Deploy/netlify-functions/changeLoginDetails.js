@@ -68,7 +68,7 @@ router.get('/change-login-details/:token', (req, res) => {
     }
     // Render a page to update login details 
     res.render('newLoginDetails');
-
+console.log('Redirect to /message-sender')
     // Redirect to '/message-sender'
     res.redirect('/message-sender');
   });
@@ -88,7 +88,7 @@ router.get('/message-sender', (req, res) => {
   const sendSSEMessage = (data) => {
     res.write(`data: ${JSON.stringify(data)}\n\n`);
   };
-
+console.log(' sendSSEMessage({ status: "successful" })')
   // Send 'successful' as an SSE message
   sendSSEMessage({ status: 'successful' });
 
