@@ -95,6 +95,7 @@ app.get('/change-login-details/:token', async (req, res) => {
     await Verify.create({ email: decoded.email, verification: verificationStatus });
 
     // Render a page to update login details
+    res.send('Verified and saved');
     res.render('new-login-details', { email: decoded.email });
   } catch (error) {
     // Handle errors during token verification or database interaction
