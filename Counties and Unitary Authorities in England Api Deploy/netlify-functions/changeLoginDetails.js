@@ -62,7 +62,7 @@ transporter.sendMail(mailOptions, function
 
 
 // Define the Verify model
-const VerifySchema = new Schema({
+const VerifySchema = dbConnection.Schema({
   email: {
     type: String,
     required: true
