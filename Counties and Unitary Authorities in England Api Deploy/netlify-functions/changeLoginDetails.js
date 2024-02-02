@@ -67,7 +67,7 @@ router.get('/change-login-details/:token', (req, res) => {
       return res.send('Invalid or expired token'); 
     }
     // Render a page to update login details 
-    res.render('newLoginDetails'); // <-- Fix typo in the render function
+    res.render('newLoginDetails');
 
     // Redirect to '/message-sender'
     res.redirect('/message-sender');
@@ -100,7 +100,6 @@ router.get('/message-sender', (req, res) => {
     res.end();
   });
 });
-
 
 
 
