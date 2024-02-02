@@ -60,8 +60,9 @@ transporter.sendMail(mailOptions, function
 
 
 
+
 // Define the Verify model
-const Verify = dbConnection.model('Verify', {
+const VerifySchema = new Schema({
   email: {
     type: String,
     required: true
@@ -71,9 +72,9 @@ const Verify = dbConnection.model('Verify', {
     enum: ['pass', 'fail'],
     required: true
   }
-}, 'Verification').schema({
-  timestamps: true
-});
+}, { timestamps: true });
+
+const Verify = dbConnection.model('Verify', VerifySchema, 'Verification');
 
 
 // Handling the token verification
