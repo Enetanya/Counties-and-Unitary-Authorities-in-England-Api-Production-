@@ -75,14 +75,16 @@ console.log('Redirect to /message-sender')
 });
 
 
-
-
 // SSE message sender endpoint
 router.get('/message-sender', (req, res) => {
-  // Set up headers for SSE
+  // Set up headers for SSE and CORS
   res.setHeader('Content-Type', 'text/event-stream');
   res.setHeader('Cache-Control', 'no-cache');
   res.setHeader('Connection', 'keep-alive');
+
+  // CORS headers for the SSE route
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+  res.setHeader('Access-Control-Allow-Methods', 'GET');
 
   // Function to send SSE message
   const sendSSEMessage = (data) => {
@@ -98,7 +100,6 @@ router.get('/message-sender', (req, res) => {
     res.end();
   });
 });
-
 
 
 
