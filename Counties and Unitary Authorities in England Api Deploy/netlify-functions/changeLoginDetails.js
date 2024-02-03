@@ -88,7 +88,7 @@ router.get('/message-sender', (req, res) => {
   const sendSSEMessage = (data) => {
     res.write(`data: ${JSON.stringify(data)}\n\n`);
   };
-console.log(' sendSSEMessage({ status: "successful" })')
+
   // Send 'successful' as an SSE message
   sendSSEMessage({ status: 'successful' });
 
