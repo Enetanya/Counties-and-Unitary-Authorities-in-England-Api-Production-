@@ -10,7 +10,7 @@ const secretKey = '1234567890';
 
 // Generate JWT token with email and expiration time
 function generateToken(email) {
-  return jwt.sign({ email }, 'secretKey', { expiresIn: '15m' });
+  return jwt.sign({ email }, secretKey, { expiresIn: '15m' });
 }
 
 
