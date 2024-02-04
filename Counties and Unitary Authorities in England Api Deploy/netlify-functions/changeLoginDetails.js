@@ -6,7 +6,7 @@ const User = require('../model.js');
 const jwt = require('jsonwebtoken'); // Importing JWT library
 
 
-const secretKey = '1234667890';
+const secretKey = '1234567890';
 
 // Generate JWT token with email and expiration time
 function generateToken(email) {
