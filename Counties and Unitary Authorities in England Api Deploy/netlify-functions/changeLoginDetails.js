@@ -5,7 +5,7 @@ const nodemailer = require('nodemailer');
 const User = require('../model.js');
 const jwt = require('jsonwebtoken'); // Importing JWT library
 
-
+// Secret key for JWT
 const secretKey = '1234567890';
 
 // Generate JWT token with email and expiration time
