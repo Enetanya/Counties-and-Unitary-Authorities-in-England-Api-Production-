@@ -83,7 +83,7 @@ router.get('/message-sender', (req, res) => {
   res.setHeader('Connection', 'keep-alive');
 
   // CORS headers for the SSE route
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+  res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET');
 
   // Function to send SSE message
