@@ -70,7 +70,7 @@ router.get('/change-login-details/:token', (req, res) => {
 console.log('Redirect to /message-sender')
     // Redirect to '/message-sender'
     res.redirect('/message-sender');
-    res.render('newLoginDetails');
+  
   });
 });
 
