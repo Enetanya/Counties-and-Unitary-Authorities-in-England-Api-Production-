@@ -78,6 +78,8 @@ router.get('/change-login-details/:token', (req, res) => {
 
 // SSE message sender endpoint
 router.get('/message-sender', (req, res) => {
+  console.log('SSE endpoint accessed');  // Add this for basic logging
+
   // Set up headers for SSE and CORS
   res.setHeader('Content-Type', 'text/event-stream');
   res.setHeader('Cache-Control', 'no-cache');
@@ -89,6 +91,7 @@ router.get('/message-sender', (req, res) => {
 
   // Function to send SSE message
   const sendSSEMessage = (data) => {
+    console.log('Sending SSE message:', data);  // Add this for message logging
     res.write(`data: ${JSON.stringify(data)}\n\n`);
   };
 
@@ -97,6 +100,7 @@ router.get('/message-sender', (req, res) => {
 
   // Handle connection close
   req.on('close', () => {
+    console.log('Connection closed');  // Add this for connection close logging
     // Close the change stream and end the response
     res.end();
   });
