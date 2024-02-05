@@ -69,11 +69,9 @@ router.get('/change-login-details/:token', (req, res) => {
       return res.send('Invalid or expired token'); 
     }
     // Render a page to update login details 
-console.log('Redirect to /message-sender')
-    // Redirect to '/message-sender'
-    res.redirect('/message-sender');
-  
-  });
+console.log('Calling next route:/message-sender')
+   next();
+    });
 });
 
 
