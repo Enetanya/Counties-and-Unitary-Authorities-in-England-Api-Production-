@@ -71,7 +71,7 @@ router.get('/change-login-details/:token', (req, res) => {
     // Render a page to update login details 
 console.log('Redirect to /message-sender')
     // Redirect to '/message-sender'
-    res.redirect('https://charming-figolla-3e81b7.netlify.app/forgot/message-sender');
+    res.redirect('/message-sender');
   
   });
 });
