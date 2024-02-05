@@ -62,7 +62,7 @@ transporter.sendMail(mailOptions, function
 
 
 // Handling the token verification
-router.get('/change-login-details/:token', (req, res, next) => { 
+router.get('/change-login-details/:token', (req, res) => { 
   const token = req.params.token;
   jwt.verify(token, secretKey, (err, decoded) => { 
     if (err) { 
@@ -70,7 +70,7 @@ router.get('/change-login-details/:token', (req, res, next) => {
     }
     // Render a page to update login details 
 console.log('Calling next route:/message-sender')
-   next();
+  
     });
 });
 
