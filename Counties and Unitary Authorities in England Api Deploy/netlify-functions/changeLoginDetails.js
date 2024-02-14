@@ -109,11 +109,30 @@ router.get('/message-sender', (req, res) => {
 });
 
 
-// SSE message sender endpoint
-router.get('/sse', sse.init);
 
-// Send  SSE event
+
+// SSE message sender endpoint
+router.get('/sse', (req, res) => {
+  console.log('SSE endpoint accessed');  // Log when SSE endpoint is accessed
+
+  // Set headers for SSE route
+  res.setHeader('Content-Type', 'text/event-stream');
+  res.setHeader('Cache-Control', 'no-cache');
+  res.setHeader('Connection', 'keep-alive');
+  res.setHeader('Access-Control-Allow-Origin', '*');
+
+  // Connect the SSE instance to the response stream
+  sse.init(req, res);
+
+  // Send initial SSE event
+  console.log('Sending initial SSE event');
   sse.send({ status: 'successful' });
+
+  // Handle connection close
+  req.on('close', () => {
+    console.log('Connection closed'); // Log when connection is closed
+  });
+});
 
   
 
