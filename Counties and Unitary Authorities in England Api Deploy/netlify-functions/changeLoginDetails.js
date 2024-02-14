@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const router = express.Router();
+const { SSE } = require(‘sse’);
 const nodemailer = require('nodemailer');
 const User = require('../model.js');
 const jwt = require('jsonwebtoken'); // Importing JWT library
