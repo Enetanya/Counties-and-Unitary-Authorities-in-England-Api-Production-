@@ -71,7 +71,7 @@ router.get('/change-login-details/:token', (req, res) => {
     // Render a page to update login details 
     console.log('Redirect to /message-sender');
     // Redirect to '/message-sender'
-    res.redirect('/forgot/message-sender');
+    res.redirect('/forgot/sse');
   });
 });
 
@@ -106,6 +106,31 @@ router.get('/message-sender', (req, res) => {
   });
 });
 
+
+// SSE message sender endpoint
+app.get('/sse', (req, res) => {
+  const sse = new SSE();
+
+  // Set headers
+  res.setHeader('Content-Type', 'text/event-stream');
+  res.setHeader('Cache-Control', 'no-cache');
+  res.setHeader('Connection', 'keep-alive');
+  res.setHeader('Access-Control-Allow-Origin', '*');
+
+  // Connect the SSE instance to the response stream
+  sse.init(req, res);
+
+  // Send initial SSE event
+  sse.send({ status: 'successful' });
+
+  // Handle connection close
+  req.on('close', () => {
+    console.log('Connection closed'); // Adding this for connection close logging
+
+    // Close the change stream and end the response
+    res.end();
+  });
+});
 
 
 // Handling the form submission for updating login details
