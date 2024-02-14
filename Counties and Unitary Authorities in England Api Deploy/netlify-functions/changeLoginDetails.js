@@ -109,7 +109,7 @@ router.get('/message-sender', (req, res) => {
 
 
 // SSE message sender endpoint
-app.get('/sse', (req, res) => {
+router.get('/sse', (req, res) => {
   const sse = new SSE();
 
   // Set headers
