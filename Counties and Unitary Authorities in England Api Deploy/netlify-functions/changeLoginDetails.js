@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const router = express.Router();
-const SSE  = require('express-sse');
+const SSE = require('@takadenoshi/express-sse');
 const sse = new SSE();
 const nodemailer = require('nodemailer');
 const User = require('../model.js');
