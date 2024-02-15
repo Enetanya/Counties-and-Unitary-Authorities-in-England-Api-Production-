@@ -128,11 +128,6 @@ router.get('/sse', (req, res) => {
   // Send initial SSE event
   console.log('Sending initial SSE event');
   sse.send({ status: 'successful' });
-
-  // Handle connection close
-  req.on('close', () => {
-    console.log('Connection closed'); // Log when connection is closed
-  });
 });
 
   
