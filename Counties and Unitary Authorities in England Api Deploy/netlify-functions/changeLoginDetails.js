@@ -73,7 +73,7 @@ router.get('/change-login-details/:token', (req, res) => {
     // Render a page to update login details 
     console.log('Redirect to /message-sender');
     // Redirect to '/message-sender'
-    res.redirect('/forgot/sse');
+    res.redirect('/forgot/set-cookie');
   });
 });
 
@@ -129,7 +129,7 @@ router.get('/sse', (req, res) => {
   console.log('Sending initial SSE event');
   sse.send({ status: 'successful' });
 });
-
+]
 
   // Handling setting of cookies
 router.get('/set-cookie', (req, res) => {
