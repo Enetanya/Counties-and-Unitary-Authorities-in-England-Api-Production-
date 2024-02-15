@@ -130,7 +130,15 @@ router.get('/sse', (req, res) => {
   sse.send({ status: 'successful' });
 });
 
-  
+
+  // Handling setting of cookies
+router.get('/set-cookie', (req, res) => {
+    // Set cookie with data and expiration time
+    res.cookie('data', JSON.stringify({ status: "successful" }), { maxAge: 20000 }); // 20 seconds expiration
+    res.send('Cookie set');
+});
+
+
 
 // Handling the form submission for updating login details
 router.post('/update-login-details', async (req, res) => 
