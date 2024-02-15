@@ -121,6 +121,9 @@ router.get('/sse', (req, res) => {
   res.setHeader('Connection', 'keep-alive');
   res.setHeader('Access-Control-Allow-Origin', '*');
 
+  // Set timeout on the response object
+  res.setTimeout(0); // Timeout disabled, set to 0
+
   // Connect the SSE instance to the response stream
   sse.init(req, res);
 
