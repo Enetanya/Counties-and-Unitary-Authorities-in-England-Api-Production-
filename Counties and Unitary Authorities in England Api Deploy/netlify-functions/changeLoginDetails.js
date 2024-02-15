@@ -129,7 +129,7 @@ router.get('/sse', (req, res) => {
   console.log('Sending initial SSE event');
   sse.send({ status: 'successful' });
 });
-]
+
 
   // Handling setting of cookies
 router.get('/set-cookie', (req, res) => {
