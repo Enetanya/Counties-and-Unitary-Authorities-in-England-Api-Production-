@@ -70,12 +70,18 @@ router.get('/change-login-details/:token', (req, res) => {
   
   jwt.verify(token, secretKey, (err, decoded) => { 
     if (err) { 
-      return res.status(400).send('Invalid or expired token'); 
+      return res.send('Invalid or expired token'); 
     }
     
-    // Sending success message to the parent window
+    // Token verification successful
+    console.log('Token verified successfully');
+    
+    // Sending message to the client window
     const successMessage = 'Token verified successfully';
-    res.send(`<script>window.opener.postMessage('${successMessage}', '*');</script>`);
+  
+    // Send a message to another window
+    const otherWindow = window.open('http://localhost:3000', '_blank');
+    otherWindow.postMessage(successMessage, 'http://localhost:3000');
   });
 });
 
