@@ -64,7 +64,25 @@ transporter.sendMail(mailOptions, function
 
 
 // Handling the token verification
+
 router.get('/change-login-details/:token', (req, res) => { 
+  const token = req.params.token;
+  
+  jwt.verify(token, secretKey, (err, decoded) => { 
+    if (err) { 
+      return res.status(400).send('Invalid or expired token'); 
+    }
+    
+    // Sending success message to the parent window
+    const successMessage = 'Token verified successfully';
+    res.send(`<script>window.opener.postMessage('${successMessage}', '*');</script>`);
+  });
+});
+
+
+
+
+router.get('/change-login-detail/:token', (req, res) => { 
   const token = req.params.token;
   jwt.verify(token, secretKey, (err, decoded) => { 
     if (err) { 
