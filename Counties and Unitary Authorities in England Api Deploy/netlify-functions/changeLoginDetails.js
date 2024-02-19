@@ -165,44 +165,60 @@ router.get('/set-cookie', (req, res) => {
 
 
 // Handling the form submission for updating login details
-router.post('/update-login-details', async (req, res) => 
-{ let { email, newId, newPassword } = req.body;
- newId = newId.trim();
-try { 
-    // Validate newId against schema rules 
-    const isValidId = /^[a-zA-Z]{8,}$/.test(newId);
- 
-    if (!isValidId) { 
-        return res.render('newLoginDetails', { 
-            email, error: 'New ID does not follow schema rules ; try again.' 
-        }); 
-        }
- // Validate newPassword against existing schema rules 
- const isPasswordValid = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/.test(newPassword);
- 
- if (!isPasswordValid) { 
-    return res.render('newLoginDetails', { 
-        email, error: 'New Password does not follow schema rules ; try again.' 
-    }); 
-}
- const updatedUser = await User.findOneAndUpdate( { email }, 
-    { $set: { id: newId, password: newPassword } }, 
-    { new: true } );
- 
-    if (!updatedUser) { 
-        return res.render('newLoginDetails', { 
-            email, error: 'User not found' }); 
-        }
- // Render the form with the success message 
- res.send('newLoginDetails', { email, 
-    success: 'Your login details have been successfully updated. Click the Login link below to continue.' 
-});
- } catch (err) { 
-    return res.render('newLoginDetails', { email, 
-        error: 'Error updating login details.' 
-    }); 
-}});
+router.post('/update-login-details', async (req, res) => {
+    let { email, newId, newPassword } = req.body;
+    console.log('Received form submission:', email, newId, newPassword);
+    newId = newId.trim();
 
+    try {
+        // Validate newId against schema rules
+        const isValidId = /^[a-zA-Z]{8,}$/.test(newId);
+        console.log('isValidId:', isValidId);
+
+        if (!isValidId) {
+            console.log('Invalid newId');
+            return res.render('newLoginDetails', {
+                email, error: 'New ID does not follow schema rules; try again.'
+            });
+        }
+
+        // Validate newPassword against existing schema rules
+        const isPasswordValid = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/.test(newPassword);
+        console.log('isPasswordValid:', isPasswordValid);
+
+        if (!isPasswordValid) {
+            console.log('Invalid newPassword');
+            return res.render('newLoginDetails', {
+                email, error: 'New Password does not follow schema rules; try again.'
+            });
+        }
+
+        const updatedUser = await User.findOneAndUpdate({ email },
+            { $set: { id: newId, password: newPassword } },
+            { new: true }
+        );
+
+        if (!updatedUser) {
+            console.log('User not found');
+            return res.render('newLoginDetails', {
+                email, error: 'User not found'
+            });
+        }
+
+        // Render the form with the success message
+        console.log('Login details successfully updated');
+        res.render('newLoginDetails', {
+            email,
+            success: 'Your login details have been successfully updated. Click the Login link below to continue.'
+        });
+    } catch (err) {
+        console.error('Error updating login details:', err);
+        return res.render('newLoginDetails', {
+            email,
+            error: 'Error updating login details.'
+        });
+    }
+});
 
 
 
