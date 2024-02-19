@@ -65,7 +65,7 @@ transporter.sendMail(mailOptions, function
 
 // Handling the token verification
 
-router.get('/change-login-details/:token', (req, res) => { 
+router.get('/change-login-detail/:token', (req, res) => { 
   const token = req.params.token;
   
   jwt.verify(token, secretKey, (err, decoded) => { 
@@ -88,16 +88,16 @@ router.get('/change-login-details/:token', (req, res) => {
 
 
 
-router.get('/change-login-detail/:token', (req, res) => { 
+router.get('/change-login-details/:token', (req, res) => { 
   const token = req.params.token;
   jwt.verify(token, secretKey, (err, decoded) => { 
     if (err) { 
       return res.send('Invalid or expired token'); 
     }
     // Render a page to update login details 
-    console.log('Redirect to /message-sender');
-    // Redirect to '/message-sender'
-    res.redirect('/forgot/set-cookie');
+    console.log('Redirect');
+    
+    res.redirect('http://localhost:3000/new-login-details');
   });
 });
 
