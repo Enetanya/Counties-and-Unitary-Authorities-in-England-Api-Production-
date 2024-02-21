@@ -125,7 +125,7 @@ router.get('/changes', function(req, res){
       const newCounties = Array.isArray(req.body) ? req.body : [req.body]; // body contains an array of counties
       const createdCounties = await County.insertMany(newCounties);
         const cityName = req.body.Name; //  name is provided in the request body
-      res.status(201).json(createdCounties);
+    
       res.json({message:`${cityName} successfully Added`})
     } catch (err) {
       console.error(err);
