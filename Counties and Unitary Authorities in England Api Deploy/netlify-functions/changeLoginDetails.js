@@ -177,9 +177,7 @@ router.post('/update-login-details', async (req, res) => {
 
         if (!isValidId) {
             console.log('Invalid newId');
-            return res.render('newLoginDetails', {
-                email, error: 'New ID does not follow schema rules; try again.'
-            });
+            return res.status(400).json({ error: 'New ID does not follow schema rules; try again.' });
         }
 
         // Validate newPassword against existing schema rules
@@ -188,9 +186,7 @@ router.post('/update-login-details', async (req, res) => {
 
         if (!isPasswordValid) {
             console.log('Invalid newPassword');
-            return res.render('newLoginDetails', {
-                email, error: 'New Password does not follow schema rules; try again.'
-            });
+            return res.status(400).json({ error: 'New Password does not follow schema rules; try again.' });
         }
 
         const updatedUser = await User.findOneAndUpdate({ email },
@@ -200,23 +196,15 @@ router.post('/update-login-details', async (req, res) => {
 
         if (!updatedUser) {
             console.log('User not found');
-            return res.render('newLoginDetails', {
-                email, error: 'User not found'
-            });
+            return res.status(404).json({ error: 'User not found' });
         }
 
-        // Render the form with the success message
+        // Send a JSON response with success message
         console.log('Login details successfully updated');
-        res.render('newLoginDetails', {
-            email,
-            success: 'Your login details have been successfully updated. Click the Login link below to continue.'
-        });
+        return res.status(200).json({ success: 'Your login details have been successfully updated.' });
     } catch (err) {
         console.error('Error updating login details:', err);
-        return res.render('newLoginDetails', {
-            email,
-            error: 'Error updating login details.'
-        });
+        return res.status(500).json({ error: 'Error updating login details.' });
     }
 });
 
