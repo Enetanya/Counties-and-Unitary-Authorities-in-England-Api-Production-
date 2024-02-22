@@ -27,7 +27,7 @@ router.post('/submit-email', async (req, res) => {
     ); 
 }
  const token = generateToken(email);
-  const changeLink = `https://counties-unitaryauthorities-england.netlify.app/forgot/change-login-details/${token}`;
+  const changeLink = `https://counties-unitauthorities-england-api.netlify.app/forgot/change-login-details/${token}`;
  
  // Create a nodemailer transporter 
  const transporter = 
@@ -70,7 +70,7 @@ router.get('/change-login-details/:token', (req, res) => {
     // Render a page to update login details 
     console.log('Redirect');
     
-    res.redirect('http://localhost:3000/new-login-details');
+    res.redirect('https://counties-unitaryauthorities-england.netlify.app/new-login-details');
   });
 });
 
