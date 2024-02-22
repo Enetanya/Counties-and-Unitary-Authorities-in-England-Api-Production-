@@ -1,8 +1,6 @@
 const express = require('express');
 const app = express();
 const router = express.Router();
-const SSE = require('@takadenoshi/express-sse');
-const sse = new SSE();
 const nodemailer = require('nodemailer');
 const User = require('../model.js');
 const jwt = require('jsonwebtoken'); // Importing JWT library
@@ -62,32 +60,7 @@ transporter.sendMail(mailOptions, function
 
 
 
-
-// Handling the token verification
-
-router.get('/change-login-detail/:token', (req, res) => { 
-  const token = req.params.token;
-  
-  jwt.verify(token, secretKey, (err, decoded) => { 
-    if (err) { 
-      return res.send('Invalid or expired token'); 
-    }
-    
-    // Token verification successful
-    console.log('Token verified successfully');
-    
-    // Sending message to the client window
-    const successMessage = 'Token verified successfully';
-  
-    // Send a message to another window
-    const otherWindow = window.open('http://localhost:3000', '_blank');
-    otherWindow.postMessage(successMessage, 'http://localhost:3000');
-  });
-});
-
-
-
-
+ // Token verification 
 router.get('/change-login-details/:token', (req, res) => { 
   const token = req.params.token;
   jwt.verify(token, secretKey, (err, decoded) => { 
@@ -99,67 +72,6 @@ router.get('/change-login-details/:token', (req, res) => {
     
     res.redirect('http://localhost:3000/new-login-details');
   });
-});
-
-
-// SSE message sender endpoint
-router.get('/message-sender', (req, res) => {
-  console.log('SSE endpoint accessed');  // Adding this for basic logging
-
-  // Set up headers for SSE and CORS
-  res.setHeader('Content-Type', 'text/event-stream');
-  res.setHeader('Cache-Control', 'no-cache');
-  res.setHeader('Connection', 'keep-alive');
-
-  // CORS headers for the SSE route
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET');
-
-  // Function to send SSE message
-  const sendSSEMessage = (data) => {
-    console.log('Sending SSE message:', data);  // Add this for message logging
-    res.write(`data: ${JSON.stringify(data)}\n\n`);
-  };
-
-  // Send 'successful' as an SSE message
-  sendSSEMessage({ status: 'successful' });
-
-  // Handle connection close
-  req.on('close', () => {
-    console.log('Connection closed');  // Adding this for connection close logging
-    // Close the change stream and end the response
-    res.end();
-  });
-});
-
-
-
-
-// SSE message sender endpoint
-router.get('/sse', (req, res) => {
-  console.log('SSE endpoint accessed');  // Log when SSE endpoint is accessed
-
-  // Set headers for SSE route
-  res.setHeader('Content-Type', 'text/event-stream');
-  res.setHeader('Cache-Control', 'no-cache');
-  res.setHeader('Connection', 'keep-alive');
-  res.setHeader('Access-Control-Allow-Origin', '*');
-
-
-  // Connect the SSE instance to the response stream
-  sse.init;
-
-  // Send initial SSE event
-  console.log('Sending initial SSE event');
-  sse.send({ status: 'successful' });
-});
-
-
-  // Handling setting of cookies
-router.get('/set-cookie', (req, res) => {
-    // Set cookie with data and expiration time
-    res.cookie('data', JSON.stringify({ status: "successful" }), { maxAge: 20000 }); // 20 seconds expiration
-    res.send('Cookie set');
 });
 
 
