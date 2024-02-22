@@ -27,7 +27,7 @@ router.post('/submit-email', async (req, res) => {
     ); 
 }
  const token = generateToken(email);
-  const changeLink = `https://charming-figolla-3e81b7.netlify.app/forgot/change-login-details/${token}`;
+  const changeLink = `https://counties-unitaryauthorities-england.netlify.app/forgot/change-login-details/${token}`;
  
  // Create a nodemailer transporter 
  const transporter = 
