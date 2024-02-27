@@ -78,6 +78,20 @@ router.get('/change-login-details/:token', (req, res) => {
 });
 
 
+/ Endpoint to generate and save random number
+router.post('/generate-number', async (req, res) => {  
+    const randomNumber = randomize('0', 6); 
+    // Generate a random 6-digit number  
+    const newRandomNumber = new RandomNumber({ number: randomNumber });
+  try {    
+    // Save the random number to the database    
+    await newRandomNumber.save();
+    // Send the random number to the client    
+    res.json({ number: randomNumber, message: 'Thanks you for confirming your email address. Copy your reference number below and include it in the relevant section. You can now return to the react app main window.' 
+             });  } 
+  catch (err) {    res.status(500).json({ message: 'Error generating and saving random number' });  }});
+
+
 
 // Endpoint to generate and save random number
 router.post('/update-login-details', async (req, res) => {
