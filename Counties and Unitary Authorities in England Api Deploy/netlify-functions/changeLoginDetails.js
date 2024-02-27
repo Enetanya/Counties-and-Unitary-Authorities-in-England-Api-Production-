@@ -87,7 +87,7 @@ router.post('/generate-number', async (req, res) => { 
     // Save the random number to the database    
     await newRandomNumber.save();
     // Send the random number to the client    
-    res.json({ number: randomNumber, message: 'Thanks you for confirming your email address. Copy your reference number below and include it in the relevant section. You can now return to the react app main window.' 
+    res.json({ number: randomNumber, message: `Thanks you for confirming your email address. Copy your reference number below and include it in the relevant section. You can now return to the react app main window.` 
              });  } 
   catch (err) {    res.status(500).json({ message: 'Error generating and saving random number' });  }});
 
