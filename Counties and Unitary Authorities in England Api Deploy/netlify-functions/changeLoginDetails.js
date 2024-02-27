@@ -80,29 +80,19 @@ router.get('/change-login-details/:token', (req, res) => {
 
 
 // Endpoint to generate and save random number
-router.post(
-  '/generate-number', async (req, res) => {  
-    const randomNumber = randomize('0', 6); // Generate a random 6-digit number  
-    const newRandomNumber = new RandomNumber({ number: randomNumber });
-  try {    
-    // Save the random number to the database    
-    await newRandomNumber.save();
-    // Send the random number to the client    
-    res.json({ number: randomNumber, message: 'Thanks you for confirming your email address. Copy your resolution number below and include it in the relevant section. You can now return to the react app main window.' });  
-  } 
-  catch (err) 
-  {    res.status(500).json({ message: 'Error generating and saving random number' });  
-  }});
-
-
-
-// Handling the form submission for updating login details
 router.post('/update-login-details', async (req, res) => {
-    let { email, newId, newPassword } = req.body;
-    console.log('Received form submission:', email, newId, newPassword);
-    newId = newId.trim();
-
     try {
+        const { email, newId, newPassword, number } = req.body;
+
+        // Check if required fields are missing
+        if (!email || !newId || !newPassword || !number) {
+            console.log('Incomplete request body');
+            return res.status(400).json({ error: 'Incomplete request body; please provide all required fields.' });
+        }
+
+        console.log('Received form submission:', email, newId, newPassword, number);
+        newId = newId.trim();
+
         // Validate newId against schema rules
         const isValidId = /^[a-zA-Z]{8,}$/.test(newId);
         console.log('isValidId:', isValidId);
@@ -121,15 +111,26 @@ router.post('/update-login-details', async (req, res) => {
             return res.status(400).json({ error: 'New Password does not follow schema rules; try again.' });
         }
 
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            console.log('User not found');
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // Find the RandomNumber document
+        const randomNumber = await RandomNumber.findOne({ number });
+
+        if (!randomNumber) {
+            console.log('Random number not found');
+            return res.status(500).json({ error: 'Random number not found' });
+        }
+
+        // Update user's login details
         const updatedUser = await User.findOneAndUpdate({ email },
             { $set: { id: newId, password: newPassword } },
             { new: true }
         );
-
-        if (!updatedUser) {
-            console.log('User not found');
-            return res.status(404).json({ error: 'User not found' });
-        }
 
         // Send a JSON response with success message
         console.log('Login details successfully updated');
