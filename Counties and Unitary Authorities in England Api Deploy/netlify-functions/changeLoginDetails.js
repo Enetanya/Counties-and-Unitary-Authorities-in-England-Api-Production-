@@ -3,7 +3,10 @@ const app = express();
 const router = express.Router();
 const nodemailer = require('nodemailer');
 const User = require('../model.js');
+const User = require('../model2.js');
 const jwt = require('jsonwebtoken'); // Importing JWT library
+const randomize = require('randomatic'); // npm package for generating random numbers
+
 
 // Secret key for JWT
 const secretKey = '1234567890';
@@ -70,9 +73,26 @@ router.get('/change-login-details/:token', (req, res) => {
     // Redirect  
     console.log('Redirect');
     
-    res.redirect('https://counties-unitaryauthorities-england.netlify.app/new-login-details');
+    res.redirect('forgot/generate-number');
   });
 });
+
+
+
+// Endpoint to generate and save random number
+router.post(
+  '/generate-number', async (req, res) => {  
+    const randomNumber = randomize('0', 6); // Generate a random 6-digit number  
+    const newRandomNumber = new RandomNumber({ number: randomNumber });
+  try {    
+    // Save the random number to the database    
+    await newRandomNumber.save();
+    // Send the random number to the client    
+    res.json({ number: randomNumber, message: 'Thanks you for confirming your email address. Copy your resolution number below and include it in the relevant section. You can now return to the react app main window.' });  
+  } 
+  catch (err) 
+  {    res.status(500).json({ message: 'Error generating and saving random number' });  
+  }});
 
 
 
