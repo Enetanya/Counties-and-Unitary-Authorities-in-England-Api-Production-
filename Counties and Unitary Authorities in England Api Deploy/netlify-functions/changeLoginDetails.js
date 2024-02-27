@@ -67,7 +67,7 @@ router.get('/change-login-details/:token', (req, res) => {
     if (err) { 
       return res.send('Invalid or expired token'); 
     }
-    // Render a page to update login details 
+    // Redirect  
     console.log('Redirect');
     
     res.redirect('https://counties-unitaryauthorities-england.netlify.app/new-login-details');
