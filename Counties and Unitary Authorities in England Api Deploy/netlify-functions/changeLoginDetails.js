@@ -96,7 +96,7 @@ router.post('/generate-number', async (req, res) => { 
 // Endpoint to generate and save random number
 router.post('/update-login-details', async (req, res) => {
     try {
-        const { email, newId, newPassword, number } = req.body;
+        let { email, newId, newPassword, number } = req.body;
 
         // Check if required fields are missing
         if (!email || !newId || !newPassword || !number) {
