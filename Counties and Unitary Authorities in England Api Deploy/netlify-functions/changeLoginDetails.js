@@ -3,7 +3,7 @@ const app = express();
 const router = express.Router();
 const nodemailer = require('nodemailer');
 const User = require('../model.js');
-const User = require('../model2.js');
+const RandomNumber = require('../model2.js');
 const jwt = require('jsonwebtoken'); // Importing JWT library
 const randomize = require('randomatic'); // npm package for generating random numbers
 
