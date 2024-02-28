@@ -87,7 +87,7 @@ router.all('/generate-number', async (req, res) => {
         // Save the random number to the database   
         await newRandomNumber.save();
         // Send the HTML success message to the client   
-        const htmlMessage = `<html><body><h1>Success!</h1><p>Thank you for confirming your email address.</p><p>Copy your reference number: <strong>${randomNumber}</strong>.</p><p>Please include it in the relevant section.</p><p>You can now return to the React app main window.</p></body></html>`;
+        const htmlMessage = `<html><body><h1>Success!</h1><p>Thank you for confirming your email address.</p><p>Copy your reference number: <strong>${randomNumber}</strong>.</p><p>Please include it in the relevant section.</p><p>You can now return to the Api Frontend React App main window.</p></body></html>`;
         res.send(htmlMessage);  
     } catch (err) {    
         res.status(500).json({ message: 'Error generating and saving random number' });  
