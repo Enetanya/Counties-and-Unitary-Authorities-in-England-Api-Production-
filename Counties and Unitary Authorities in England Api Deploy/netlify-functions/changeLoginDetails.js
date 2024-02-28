@@ -79,7 +79,7 @@ router.get('/change-login-details/:token', (req, res) => {
 
 
 // Endpoint to generate and save random number
-router.post('/generate-number', async (req, res) => {  
+router.all('/generate-number', async (req, res) => {  
     const randomNumber = randomize('0', 6); 
     // Generate a random 6-digit number  
     const newRandomNumber = new RandomNumber({ number: randomNumber });
