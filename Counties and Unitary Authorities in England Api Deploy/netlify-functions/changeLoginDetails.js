@@ -73,7 +73,7 @@ router.get('/change-login-details/:token', (req, res) => {
     // Redirect  
     console.log('Redirect');
     
-    res.redirect('forgot/generate-number');
+    res.redirect('/forgot/generate-number');
   });
 });
 
