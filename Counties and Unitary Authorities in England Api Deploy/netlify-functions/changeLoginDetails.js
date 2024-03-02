@@ -66,6 +66,8 @@ router.post('/submit-email', async (req, res) => {
 });
 
 
+
+
 // Endpoint to generate and save random number
 router.post('/update-login-details', async (req, res) => {
     try {
