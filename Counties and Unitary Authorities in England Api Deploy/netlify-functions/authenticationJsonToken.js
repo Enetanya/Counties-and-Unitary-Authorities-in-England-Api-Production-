@@ -1,4 +1,3 @@
-
 const express = require('express');
 const app = express();
 const path = require('path');
@@ -6,16 +5,8 @@ const router = express.Router();
 const jwt = require('jsonwebtoken'); // JWT library
 const User = require('../model.js');
 
-
 // Secret key for JWT
 const secretKey = '1234567890';
-
-// Signup route
-router.get('/signup', function(req, res){
-    res.send('signup');
-});
-
-
 
 // Signup route with validation
 router.post('/signup', async function(req, res){
@@ -50,12 +41,6 @@ router.post('/signup', async function(req, res){
         return res.send({ message: 'Internal Server Error' });
     }
  });
- 
- 
-// Login route
-router.get('/login', function(req, res){
-    res.render('login');
-});
 
 router.post('/login', async function(req, res){
     if (!req.body.id || !req.body.password) {
@@ -77,38 +62,10 @@ router.post('/login', async function(req, res){
     }
 });
 
-// Protected page route
-router.get('/documentationPage', verifyToken, function(req, res){
-    res.render('documentationPage', { id: req.userId });
+// Error handling middleware which handles any unhandled errors in the application.
+app.use((err,req,res,next)=>{
+    console.error(err.stack); // Log the error stack trace
+    res.status(500).send('Something went wrong');
 });
-
-// Logout route
-router.get('/logout', function(req, res){
-    res.clearCookie('token');
-    res.redirect('/auth/login');
-});
-
-// Middleware to verify JWT token
-function verifyToken(req, res, next) {
-   const token = req.cookies.token;
-   if (token) {
-       jwt.verify(token, secretKey, (err, decoded) => {
-           if (err) {
-               return res.redirect('/auth/login');
-           }
-           req.userId = decoded.id;
-           next();
-       });
-   } else {
-       res.redirect('/auth/login');
-   }
-}
-
-
-// Error handling middleware which handles any unhandled errors in the  application.
-app.use((err,req,res,next)=>
-{console.error(err.stack);// Log the error stack trace
-res.status(500).send('Something went wrong')
-})
 
 module.exports = router;
