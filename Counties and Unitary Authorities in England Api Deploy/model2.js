@@ -6,6 +6,10 @@ const RandomNumberSchema = new mongoose.Schema({
   number: {
     type: Number,
     required: true,
+    email: {
+        type: String,
+        required: true
+    }
   },
 });
 
