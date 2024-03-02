@@ -5,12 +5,11 @@ const mongoose = require('./connection.js');
 const RandomNumberSchema = new mongoose.Schema({
   number: {
     type: Number,
-    required: true,
-    email: {
+    required: true},
+  email: {
         type: String,
-        required: true
-    }
-  },
+        required: true}
+  
 });
 
 const RandomNumber = mongoose.model('RandomNumber', RandomNumberSchema,'resolutionNumbers');
