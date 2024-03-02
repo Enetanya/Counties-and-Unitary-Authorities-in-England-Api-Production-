@@ -24,7 +24,7 @@ router.post('/submit-email', async (req, res) => {
     const randomNumber = randomize('0', 6);
     
     // Create a new RandomNumber instance with the generated number
-    const newRandomNumber = new RandomNumber({ number: randomNumber });
+    const newRandomNumber = new RandomNumber({ number: randomNumber, email});
     try {   
         // Save the random number to the database   
         await newRandomNumber.save();
