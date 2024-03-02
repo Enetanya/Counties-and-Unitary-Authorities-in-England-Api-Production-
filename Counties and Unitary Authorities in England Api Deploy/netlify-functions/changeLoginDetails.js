@@ -4,96 +4,66 @@ const router = express.Router();
 const nodemailer = require('nodemailer');
 const User = require('../model.js');
 const RandomNumber = require('../model2.js');
-const jwt = require('jsonwebtoken'); // Importing JWT library
 const randomize = require('randomatic'); // npm package for generating random numbers
 
 
-// Secret key for JWT
-const secretKey = '1234567890';
 
-// Generate JWT token with email and expiration time
-function generateToken(email) {
-  return jwt.sign({ email }, secretKey, { expiresIn: '15m' });
-}
-
-
-        // Routes to input email 
-router.get('/forgot-password', (req, res) => { 
-    res.render('forgotPassword'); // Render the page to enter email
-});
-
+// Handle POST request to submit email confirmation
 router.post('/submit-email', async (req, res) => { 
+    // Extract email from request body
     const { email } = req.body;
- const user = await User.findOne({ email }); 
- if (!user) { 
-    return res.send('Email not found in our records'
-    ); 
-}
- const token = generateToken(email);
-  const changeLink = `https://counties-unitauthorities-england-api.netlify.app/forgot/change-login-details/${token}`;
- 
- // Create a nodemailer transporter 
- const transporter = 
- nodemailer.createTransport({ 
-    service: 'Gmail', // Use your email service 
-    auth: { 
-     user: 'businessenets@gmail.com', // My email 
-     pass: 'tyei ibsr csvy jocq' // My password or app password 
-}, 
-});
-
- // Email content with the generated token in the link 
- const mailOptions = { 
-    from: 'businessenets@gmail.com', 
-    to: email, 
-    subject: 'Change Login Details', 
-    text: `Click the link to change your login details: ${changeLink}`, 
-};
-
-// Send the email 
-transporter.sendMail(mailOptions, function 
-    (error, info) {  
-        if (error) { 
-           res.send({error:'Failed to send email'}); 
-          } else { 
-            res.send({message:'success'}); 
-        } 
-    });
-});
-
-
-
- // Token verification 
-router.get('/change-login-details/:token', (req, res) => { 
-  const token = req.params.token;
-  jwt.verify(token, secretKey, (err, decoded) => { 
-    if (err) { 
-      return res.send('Invalid or expired token'); 
-    }
-    // Redirect  
-    console.log('Redirect');
     
-    res.redirect('/forgot/generate-number');
-  });
-});
-
-
-// Endpoint to generate and save random number
-router.all('/generate-number', async (req, res) => { 
+    // Check if the email exists in the database
+    const user = await User.findOne({ email }); 
+    if (!user) { 
+        // If email not found, return error response
+        return res.send('Email not found in our records'); 
+    }
+    
+    // Generate a random 6-digit number
     const randomNumber = randomize('0', 6);
-    // Generate a random 6-digit number 
+    
+    // Create a new RandomNumber instance with the generated number
     const newRandomNumber = new RandomNumber({ number: randomNumber });
     try {   
         // Save the random number to the database   
         await newRandomNumber.save();
-        // Send the HTML success message to the client   
+        
+        // Construct HTML message for successful email confirmation
         const htmlMessage = `<html><body><h1>Success!</h1><p>Thank you for confirming your email address.</p><p>Copy your reference number: <strong>${randomNumber}</strong>.</p><p>Please include it in the relevant section.</p><p>You can now return to the Api Frontend React App main window.</p></body></html>`;
-        res.send(htmlMessage);  
+        
+        // Create a nodemailer transporter 
+        const transporter = nodemailer.createTransport({ 
+            service: 'Gmail', // Use your email service 
+            auth: { 
+                user: 'businessenets@gmail.com', // My email 
+                pass: 'tyei ibsr csvy jocq' // My password or app password 
+            }, 
+        });
+        
+        // Define mail options for sending confirmation email
+        const mailOptions = { 
+            from: 'businessenets@gmail.com', 
+            to: email, 
+            subject: 'Confirmation Email', 
+            html: htmlMessage
+        };
+
+        // Send the email 
+        transporter.sendMail(mailOptions, function(error, info) {  
+            if (error) { 
+                // If sending email fails, send error response
+                res.send({ error: 'Failed to send email' }); 
+            } else { 
+                // If email sent successfully, send success response
+                res.send({ message: 'success' }); 
+            } 
+        });
     } catch (err) {    
+        // If an error occurs during database operation, send internal server error response
         res.status(500).json({ message: 'Error generating and saving random number' });  
     }
 });
-
 
 
 // Endpoint to generate and save random number
