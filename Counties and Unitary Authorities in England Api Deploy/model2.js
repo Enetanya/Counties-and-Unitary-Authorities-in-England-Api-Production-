@@ -13,6 +13,6 @@ const RandomNumberSchema = new mongoose.Schema({
   },
 });
 
-const RandomNumber = mongoose.model('RandomNumber', RandomNumberSchema,'resolutionNumber');
+const RandomNumber = mongoose.model('RandomNumber', RandomNumberSchema,'resolutionNumbers');
 
 module.exports = RandomNumber;
