@@ -6,10 +6,10 @@ const jwt = require('jsonwebtoken'); // JWT library
 const User = require('../model.js');
 
 // Secret key for JWT
-const secretKey = '1234567890';
+const secretKey = process.env.secretKeyRight;
 
 // Signup route with validation
-router.post('/signup', async function(req, res){
+router.post('/process.env.sp', async function(req, res){
     try {
         let { id, password, email } = req.body;
  
@@ -42,7 +42,7 @@ router.post('/signup', async function(req, res){
     }
  });
 
-router.post('/login', async function(req, res){
+router.post('/process.env.ln', async function(req, res){
     if (!req.body.id || !req.body.password) {
         res.send({ message: "Please enter both id and password" });
     } else {
