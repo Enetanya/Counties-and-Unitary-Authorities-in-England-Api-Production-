@@ -9,7 +9,7 @@ const randomize = require('randomatic'); // npm package for generating random nu
 
 
 // Handle POST request to submit email confirmation
-router.post('/submit-email', async (req, res) => { 
+router.post('/process.env.se', async (req, res) => { 
     // Extract email from request body
     const { email } = req.body;
     
@@ -37,7 +37,7 @@ router.post('/submit-email', async (req, res) => {
             service: 'Gmail', // Use your email service 
             auth: { 
                 user: 'businessenets@gmail.com', // My email 
-                pass: 'tyei ibsr csvy jocq' // My password or app password 
+                pass: 'process.env.ps' // My password or app password 
             }, 
         });
         
@@ -69,7 +69,7 @@ router.post('/submit-email', async (req, res) => {
 
 
 // Endpoint to generate and save random number
-router.post('/update-login-details', async (req, res) => {
+router.post('/process.env.ud', async (req, res) => {
     try {
         let { email, newId, newPassword, number } = req.body;
 
