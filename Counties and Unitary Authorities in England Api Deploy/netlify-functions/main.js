@@ -37,7 +37,7 @@ function generateAPIKey() {
 }
 
 // Endpoint to generate an API key
-router.post('/generateApiKey', async function(req, res) {
+router.post('/process.env.gy', async function(req, res) {
   try {
     const apiKey = generateAPIKey();
     const apiKeyDocument = new ApiKey({ key: apiKey });
@@ -114,13 +114,10 @@ router.get('/place/:name', authenticateAPIKey, async function(req, res){
     }
   });
 
-// Renders protected page
-router.get('/changes', function(req, res){
-  res.render('protectedRoutesPage', { message: null });
-});
+
   
   // POST endpoint to create single or multiple counties documents
-  router.post('/create',authenticatePasswords ,async function(req, res){
+  router.post('/process.env.ct',authenticatePasswords ,async function(req, res){
     try {
       const newCounties = Array.isArray(req.body) ? req.body : [req.body]; // body contains an array of counties
       const createdCounties = await County.insertMany(newCounties);
@@ -134,7 +131,7 @@ router.get('/changes', function(req, res){
   });
 
  // PUT endpoint to update a single county by name
-router.post('/update', authenticatePasswords, async function(req, res){
+router.post('/process.env.ut', authenticatePasswords, async function(req, res){
   try {
     const cityName = req.body.Name; //  name is provided in the request body
     const updatedCounty = req.body; // body contains the updated county details
@@ -153,7 +150,7 @@ router.post('/update', authenticatePasswords, async function(req, res){
 });
 
 // DELETE endpoint to delete a single county by name
-router.post('/delete', authenticatePasswords, async function(req, res){
+router.post('/process.env.dt', authenticatePasswords, async function(req, res){
   try {
     const cityName = req.body.Name; // name is provided in the request body
     const deleteResult = await County.findOneAndDelete({ Name: cityName });
