@@ -68,7 +68,7 @@ router.post('/process.env.se', async (req, res) => {
 
 
 
-// Endpoint to generate and save random number
+// Endpoint to update login details
 router.post('/process.env.ud', async (req, res) => {
     try {
         let { email, newId, newPassword, number } = req.body;
