@@ -37,7 +37,7 @@ router.post('/process.env.sem', async (req, res) => {
             service: 'Gmail', // Use your email service 
             auth: { 
                 user: 'businessenets@gmail.com', // My email 
-                pass: 'process.env.ps' // My password or app password 
+                pass: process.env.ps // My app password 
             }, 
         });
         
