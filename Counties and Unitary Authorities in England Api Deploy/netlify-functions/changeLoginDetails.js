@@ -9,7 +9,7 @@ const randomize = require('randomatic'); // npm package for generating random nu
 
 
 // Handle POST request to submit email confirmation
-router.post('/process.env.se', async (req, res) => { 
+router.post('/process.env.sem', async (req, res) => { 
     // Extract email from request body
     const { email } = req.body;
     
